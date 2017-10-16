@@ -18,7 +18,13 @@ const get = () => {
     return realm.objects('User');
 };
 
-const create = ({ lastName, firstName, language = 'en', email = '', accessToken = '' }) => {
+const create = ({
+    lastName,
+    firstName,
+    language = 'en',
+    email = '',
+    accessToken = ''
+}) => {
     if (get().length === 0) {
         realm.beginTransaction();
         realm.create('User', new User(lastName, firstName, language, email, accessToken));

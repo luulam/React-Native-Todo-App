@@ -8,7 +8,7 @@ class Splash extends Component {
     componentDidMount() {
         setTimeout(_ => {
             this.props.navigation.navigate('MainMyList');
-        }, 1000);
+        }, 0);
     }
 
     render() {
