@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
-import { Text, Icon } from './';
-import { constants, styleApp } from '../configs';
-import { icon } from '../assets';
+import { Text } from './';
+import { constants, colors } from '../configs';
 
 /**
  * 
@@ -16,39 +15,33 @@ let HeaderApp = ({
     title,
     children,
     left,
+    right,
     backPress,
     center
 }) => {
     return (
         <View
-            style={style}
+            style={[style, { justifyContent: title ? 'flex-start' : 'space-between' }]}
         >
-            <View
-                style={styles.containerRow}
-            >
-                {backPress
-                    ? <Icon
-                        name={icon.back}
-                    />
-                    : null}
-                {left}
-            </View>
-
-            <View
-                style={styles.containerRow}
-            >
-                {children}
-            </View>
-
             {title ?
-                <Text
-                    style={styles.containerCenter}
-                    align={'center'}
-                    text={title}
-                    fontSize={constants.font.header}
-                    bold
-                />
-                : null}
+                [ //header Title and right
+                    <Text
+                        key={'title'}
+                        style={styles.containerTitle}
+                        align={'left'}
+                        text={title}
+                        fontSize={constants.font.header}
+                        bold
+                        color={colors.access}
+                    />,
+                    <View key={'right'}>{right}</View>
+                ]
+                : //full header
+                [
+                    <View key={'left'}>{left}</View>,
+                    <View key={'center'} style={styles.containerCenter}>{children}</View>,
+                    <View key={'right'}>{right}</View>
+                ]}
 
         </View>
     );
@@ -57,11 +50,13 @@ let HeaderApp = ({
 let styles = StyleSheet.create({
     containers: {
         paddingHorizontal: constants.padHor,
+        paddingVertical: constants.padVer,
         height: constants.navBarHeight,
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        ...styleApp.shadow
+    },
+    containerTitle: {
+        flex: 1,
     },
     containerRow: {
         flexDirection: 'row'

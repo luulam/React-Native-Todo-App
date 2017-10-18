@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-import { } from '../components';
+import { Header, MyListCategory } from '../components';
 import { constants } from '../configs';
 
 class MyList extends Component {
@@ -9,7 +9,10 @@ class MyList extends Component {
         return (
             <View
                 style={styles.containers}
-             />
+            >
+                <Header title={'My Lists'} />
+                <MyListCategory />
+            </View>
         );
     }
 }

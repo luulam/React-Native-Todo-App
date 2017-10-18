@@ -7,6 +7,10 @@ import { Text, Icon } from '../';
 export default class InputText extends Component {
 
     static propTypes = {
+        color: PropTypes.string,
+        italic: PropTypes.bool,
+        bold: PropTypes.bool,
+        upperCase: PropTypes.bool,
         defaultValue: PropTypes.string,
         hint: PropTypes.string,
         maxLength: PropTypes.number,
@@ -22,9 +26,13 @@ export default class InputText extends Component {
     }
 
     static defaultProps = {
+        color: colors.text,
+        italic: false,
+        bold: false,
+        UpperCase: false,
         multiline: false,
         iconRemove: false,
-        hideBottom: true
+        hideBottom: true,
     }
 
     constructor(props) {
@@ -87,6 +95,10 @@ export default class InputText extends Component {
 
     render() {
         const {
+            color,
+            bold,
+            italic,
+            upperCase,
             hint,
             multiline,
             style,
@@ -114,9 +126,12 @@ export default class InputText extends Component {
                     multiline={multiline}
                     underlineColorAndroid="transparent"
                     onChangeText={this._onChangeText}
-                    value={value}
+                    value={upperCase ? value.toUpperCase() : value}
                     onFocus={this._onFocus}
                     style={{
+                        color: color,
+                        fontWeight: bold ? 'bold' : undefined,
+                        fontStyle: italic ? 'italic' : undefined,
                         fontSize: constants.font.nomal,
                         ...style,
                         paddingRight: constants.font.nomal,
@@ -147,7 +162,7 @@ export default class InputText extends Component {
     _onContentSizeChange = (event) => {
         let height = event.nativeEvent.contentSize.height;
         let { onContentSizeChange } = this.props;
-        if (Platform.OS === 'android') {this.setState({ height });}
+        if (Platform.OS === 'android') { this.setState({ height }); }
         onContentSizeChange && onContentSizeChange(event);
     }
 
@@ -177,9 +192,6 @@ export default class InputText extends Component {
 
 const styles = StyleSheet.create({
     containers: {
-        paddingHorizontal: constants.padHor,
-        paddingVertical: constants.padVer,
-        justifyContent: 'center',
         flex: 1
     },
     borderBottom: {

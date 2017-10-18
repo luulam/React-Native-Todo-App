@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, KeyboardHandleView } from './';
-import { constants } from '../configs';
+import { Text, Button, KeyboardHandleView } from '../';
+import { constants } from '../../configs';
 
 
 class Dialog extends Component {

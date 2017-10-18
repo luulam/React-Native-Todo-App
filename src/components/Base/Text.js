@@ -13,6 +13,7 @@ let TextApp = ({
     text,
     bold,
     italic,
+    upperCase,
     style,
     disable,
     color,
@@ -37,7 +38,7 @@ let TextApp = ({
             textDecorationLine: under ? 'underline' : 'none'
         }]}
     >
-        {text}
+        {upperCase ? text.toUpperCase() : text}
         {children}
     </Text>;
 };
@@ -52,6 +53,7 @@ TextApp.propTypes = {
     style: PropTypes.any,
     text: PropTypes.string,
     bold: PropTypes.bool,
+    upperCase: PropTypes.bool,
     italic: PropTypes.bool,
     disable: PropTypes.bool,
     color: PropTypes.string,

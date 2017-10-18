@@ -1,3 +1,10 @@
+import { Platform } from 'react-native';
 import userDB from './dataLocal/user';
 
-export { userDB };
+/**
+ * platfrom is ios return true, android return false
+ * @returns {bool} 
+ */
+const platform = Platform.OS === 'ios' ? true : false;
+
+export { platform, userDB };
