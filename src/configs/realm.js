@@ -18,8 +18,9 @@ let ListSchema = {
     name: 'List',
     primaryKey: 'id',
     properties: {
-        id: { type: 'int' },
+        id: { type: 'string' },
         name: { type: 'string' },
+        listTask: { type: 'list', objectType: 'Task' },
         timeCreate: { type: 'string' },
         timeUpdate: { type: 'string' },
     }
@@ -29,7 +30,7 @@ let TaskSchema = {
     name: 'Task',
     primaryKey: 'id',
     properties: {
-        id: { type: 'int' },
+        id: { type: 'string' },
         name: { type: 'string' },
         status: { type: 'string' },
         subTask: { type: 'data' },

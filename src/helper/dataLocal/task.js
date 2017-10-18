@@ -4,6 +4,7 @@
  */
 import { realm } from '../../configs';
 import uuidV4 from 'uuid/v4';
+import moment from 'moment';
 
 class Task {
     constructor(name, status, subTask) {
@@ -11,8 +12,8 @@ class Task {
         this.name = name;
         this.status = status;
         this.subTask = subTask;
-        this.timeCreate = new Date();
-        this.timeUpdate = new Date();
+        this.timeCreate = moment().toString();
+        this.timeUpdate = moment().toString();
     }
 }
 
@@ -21,7 +22,7 @@ class Task {
  * @returns {RealmObject}
  */
 const get = () => {
-    return realm.objects('List');
+    return realm.objects('Task');
 };
 
 /**

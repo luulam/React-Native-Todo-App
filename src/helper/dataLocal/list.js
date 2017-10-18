@@ -4,13 +4,14 @@
  */
 import { realm } from '../../configs';
 import uuidV4 from 'uuid/v4';
-
+import moment from 'moment';
 class List {
-    constructor(name) {
+    constructor(name, listTask = []) {
         this.id = uuidV4();
         this.name = name;
-        this.timeCreate = new Date();
-        this.timeUpdate = new Date();
+        this.listTask = listTask;
+        this.timeCreate = moment().toString();
+        this.timeUpdate = moment().toString();
     }
 }
 
@@ -27,10 +28,21 @@ const get = () => {
  * @param {string} name
  */
 const create = ({
-    name
+    name,
+    listTask
+}) => {
+    if (name === undefined || name === null || name === '') { throw 'name required is not null'; }
+    realm.beginTransaction();
+    realm.create('List', new List(name, listTask));
+    realm.commitTransaction();
+};
+
+const edit = ({
+    name, id
 }) => {
     realm.beginTransaction();
-    realm.create('List', new List(name));
+    var objectSchema = realm.objectForPrimaryKey('List', id);
+    objectSchema.name = name;
     realm.commitTransaction();
 };
 
@@ -46,5 +58,6 @@ const remove = ({
 export default {
     get,
     create,
+    edit,
     remove
 };
