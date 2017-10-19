@@ -15,10 +15,12 @@ let ViewApp = ({
     onPress,
     onLongPress,
     delayLongPress,
-    disTouch
+    disTouch,
+    activeOpacity
 }) => {
     return (
         <TouchableOpacity
+            activeOpacity={activeOpacity}
             style={style}
             disabled={disTouch}
             onPress={onPress}

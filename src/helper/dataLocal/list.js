@@ -50,9 +50,12 @@ const edit = ({
  * @param {int} index 
  */
 const remove = ({
-    index
+    id
 }) => {
-    realm.delete(get().filtered(`id = ${index}`));
+    console.log('id', id, get().map(value => Object.assign({}, value)));
+    realm.beginTransaction();
+    realm.delete(get().filtered(`id = '${id}'`));
+    realm.commitTransaction();
 };
 
 export default {

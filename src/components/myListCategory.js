@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { FlatList, StyleSheet } from 'react-native';
 import { Text, Icon, View, InputText } from './';
 import { colors, constants } from '../configs';
-import { icon } from '../assets';
+import { icon, string } from '../assets';
 import { listDB, taskDB } from '../helper';
+import actions from '../redux/actions';
 
 class MyListCategory extends Component {
+
+    _arrListCategory = null;
+
     state = {
         selected: (new Map()),
         select: undefined,
@@ -45,7 +50,6 @@ class MyListCategory extends Component {
                                 color={colors.gray} />
                         ]
                         : <Icon
-                            onPress={() => this._onRemoveItem()}
                             disable
                             name={icon.add}
                             color={colors.access} />
@@ -65,7 +69,7 @@ class MyListCategory extends Component {
                 <Icon
                     style={styles.buttonRemove}
                     name={icon.remove}
-                    onPress={() => { console.log('remove'); }} />
+                    onPress={() => this._onRemoveItem({ item, index })} />
                 <InputText
                     ref={component => { this[`input${index}`] = component; }}
                     autoFocus
@@ -83,7 +87,7 @@ class MyListCategory extends Component {
         const { select } = this.state;
         const { name, round, listTask } = item;
         let selectEdit = select !== undefined && select === index;
-        let numberItem = listTask === undefined || listTask.length;
+        let numberItem = listTask !== undefined && listTask.length;
 
         if (selectEdit) { return this._renderItemEdit({ item, index, selectEdit, round, name, numberItem, select }); }
         return this._renderItemNomal({ item, index, selectEdit, round, name, numberItem, select });
@@ -104,6 +108,8 @@ class MyListCategory extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <FlatList
+                    keyboardShouldPersistTaps={'handled'}
+                    ref={(comp) => { this._arrListCategory = comp; }}
                     data={data}
                     extraData={this.state}
                     keyExtractor={this._keyExtractor}
@@ -130,9 +136,21 @@ class MyListCategory extends Component {
 
     _keyExtractor = (item, index) => index;
 
-    _onRemoveItem = ({ }) => {
-
+    _onRemoveItem = ({ item, index }) => {
+        this.props.showDialog(undefined, string.noti_remove_category, [
+            {
+                title: string.ok, onPress: () => {
+                    this.setState({ select: undefined }, () => {
+                        listDB.remove({ id: item.id });
+                    });
+                    this.props.hideDialog();
+                    this.props.showNotify(string.remove_success);
+                }
+            },
+            { title: string.canner, onPress: () => this.props.hideDialog() }
+        ]);
     }
+
     _onUnFocus = ({ item, index, text }) => {
         if (text === '') {
             this.setState({ select: undefined });
@@ -161,7 +179,7 @@ class MyListCategory extends Component {
     _onLongPressItem = ({ item, index }) => {
         if (item.all) { return; }
         this.setState({ select: index }, () => {
-            console.log('last _onLongPressItem', this.state);
+
         });
     }
 }
@@ -206,4 +224,14 @@ let styles = StyleSheet.create({
     }
 });
 
-export default MyListCategory;
+const mapStateToProps = (state) => ({
+    dialog: state.app.dialog
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    showNotify: (data) => actions.showNotify(dispatch)(data),
+    showDialog: (title, message, button) => actions.showDialog(dispatch)(title, message, button),
+    hideDialog: () => actions.hideDialog(dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyListCategory);

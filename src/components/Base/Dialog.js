@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
-import { Text, Button, KeyboardHandleView } from '../';
-import { constants } from '../../configs';
-
+import { StyleSheet, BackHandler } from 'react-native';
+import { Text, Button, View } from '../';
+import { constants, colors } from '../../configs';
+import { string } from '../../assets';
+import { platform } from '../../helper';
+import actions from '../../redux/actions';
 
 class Dialog extends Component {
 
@@ -21,6 +23,16 @@ class Dialog extends Component {
         }
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.dialog && nextProps.dialog.show) {
+            BackHandler.addEventListener('hardwareBackPressDialog', () => {
+                this.props.hideDialog()
+            });
+        } else {
+            BackHandler.addEventListener('hardwareBackPressDialog');
+        }
+    }
+
     _renderButton = () => {
         let { dialog } = this.props;
         return (<View style={styles.containersButton}>
@@ -29,6 +41,7 @@ class Dialog extends Component {
                 width={constants.appWidth / 3}
                 title={v.title}
                 onPress={v.onPress}
+                style={styles.button}
             />)}
         </View>);
     }
@@ -38,24 +51,29 @@ class Dialog extends Component {
 
         return dialog.show
             ? <View
+                disTouch={false}
+                activeOpacity={0}
                 style={styles.containers}
+                onPress={() => this.props.hideDialog()}
             >
                 <View
+                    disTouch={false}
+                    activeOpacity={1}
                     style={styles.containersBackground}>
                     <Text
-                        text={dialog.title}
+                        color={colors.access}
+                        text={dialog.title === undefined ? string.notification : dialog.title}
                         bold
+                        upperCase
                         style={styles.text}
                         fontSize={constants.font.dialog} />
+                    <View style={styles.lineCenter} />
                     <Text
                         text={dialog.message}
-                        style={styles.text}
-                        fontSize={constants.font.dialog} />
+                        style={styles.text} />
 
                     {this._renderButton()}
-
                 </View>
-                <KeyboardHandleView />
             </View>
             : null;
 
@@ -71,29 +89,43 @@ const styles = StyleSheet.create({
         zIndex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         position: 'absolute',
     },
     containersBackground: {
         backgroundColor: 'white',
-        padding: constants.padHor * 3,
+        marginTop: constants.statusBarHeight * 2,
+        paddingVertical: constants.padVer,
+        paddingHorizontal: constants.padHor,
         borderRadius: constants.borderRadius
     },
     containersButton: {
+        marginTop: constants.padVer,
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
+    lineCenter: {
+        marginTop: constants.padVer,
+        marginBottom: constants.padVer / 2,
+        backgroundColor: colors.access,
+        height: 0.5,
+        alignSelf: 'stretch'
+    },
     text: {
-        marginBottom: constants.padHor * 3,
         alignSelf: 'center'
+    },
+    button: {
+        marginLeft: constants.padHor / 3,
     }
 });
 
 
-const mapStateToProps = (state) => {
-    return {
-        dialog: state.app.dialog,
-    };
-};
+const mapStateToProps = (state) => ({
+    dialog: state.app.dialog
+});
 
-export default connect(mapStateToProps)(Dialog);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    hideDialog: () => actions.hideDialog(dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dialog);

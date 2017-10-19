@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Keyboard, View, Platform } from 'react-native';
-
-export default class KeyboardHandleView extends Component {
+import PropTypes from 'prop-types';
+import { Keyboard, View } from 'react-native';
+import { constants } from '../../configs';
+import { platform } from '../../helper';
+class KeyboardHandleView extends Component {
 
     constructor(props) {
         super(props);
@@ -9,9 +11,10 @@ export default class KeyboardHandleView extends Component {
             heightKeyBoard: 0
         };
     }
+
     componentWillMount() {
-        const updateListener = Platform.OS === 'android' ? 'keyboardDidShow' : 'keyboardWillShow';
-        const resetListener = Platform.OS === 'android' ? 'keyboardDidHide' : 'keyboardWillHide';
+        const updateListener = !platform ? 'keyboardDidShow' : 'keyboardWillShow';
+        const resetListener = !platform ? 'keyboardDidHide' : 'keyboardWillHide';
 
         this._listeners = [
             Keyboard.addListener(updateListener, this._keyboardDidShow),
@@ -24,20 +27,32 @@ export default class KeyboardHandleView extends Component {
         return (
             <View
                 style={[{
-                    height: Platform.OS === 'ios' ? heightKeyBoard : 0,
+                    height: platform ? heightKeyBoard : 0,
                 }, style]}
             />
         );
     }
+
     componentWillUnmount = () => {
         this._listeners.forEach(listener => listener.remove());
     }
 
     _keyboardDidShow = (event) => {
-        this.setState({ heightKeyBoard: event.endCoordinates.height });
+        const { hasTab } = this.props;
+        this.setState({ heightKeyBoard: hasTab ? event.endCoordinates.height - constants.navBarHeight : event.endCoordinates.height });
     }
 
     _keyboardDidHide = (event) => {
         this.setState({ heightKeyBoard: 0 });
     }
 }
+
+KeyboardHandleView.propTypes = {
+    hasTab: PropTypes.bool
+};
+
+KeyboardHandleView.defaultProps = {
+    hasTab: false
+};
+
+export default KeyboardHandleView;
