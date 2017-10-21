@@ -1,9 +1,9 @@
-import string from './string';
-import array from './array';
-import icon from './icon';
+import Strings from './Strings';
+import Arrays from './Arrays';
+import Icons from './Icons';
 
 export {
-    string,
-    array,
-    icon
+    Strings,
+    Arrays,
+    Icons
 };

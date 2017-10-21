@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 import { Icon } from '../components';
 //all screen
-import Splash from '../screens/splash';
-import MyList from '../screens/myList';
-import DetailList from '../screens/detailList';
-import Setting from '../screens/setting';
+import SplashScreen from '../screens/SplashScreen';
+import ListCategoryScreen from '../screens/ListCategoryScreen';
+import DetailListScreen from '../screens/DetailListScreen';
+import SettingScreen from '../screens/SettingScreen';
 
-import { colors, styleApp, constants } from '../configs';
-import { icon } from '../assets';
+import { Colors, Style, Constants } from '../configs';
+import { Icons } from '../assets';
 
 const getIconTab = (name) => ({ tintColor }) => (
     <Icon name={name} color={tintColor} disable />
@@ -18,40 +18,40 @@ const getIconTab = (name) => ({ tintColor }) => (
 const Navigation = StackNavigator(
     {
         Splash: {
-            screen: Splash
+            screen: SplashScreen
         },
         MainTab: {
             screen: TabNavigator({
                 MainMyList: {
                     screen: StackNavigator(
                         {
-                            MyList: {
-                                screen: MyList
+                            ListCategory: {
+                                screen: ListCategoryScreen
                             },
                             DetailList: {
-                                screen: DetailList
+                                screen: DetailListScreen
                             }
                         },
                         {
-                            initialRouteName: 'MyList',
+                            initialRouteName: 'ListCategory',
                             headerMode: 'none',
                             cardStyle: {
-                                ...styleApp.disable_shadow,
-                                backgroundColor: colors.bg_app,
+                                ...Style.disable_shadow,
+                                backgroundColor: Colors.bg_app,
                             },
 
                         }
                     ),
                     navigationOptions: {
                         tabBarLabel: 'Task',
-                        tabBarIcon: getIconTab(icon.home)
+                        tabBarIcon: getIconTab(Icons.home)
                     }
                 },
                 Setting: {
-                    screen: Setting,
+                    screen: SettingScreen,
                     navigationOptions: {
                         tabBarLabel: 'Setting',
-                        tabBarIcon: getIconTab(icon.setting)
+                        tabBarIcon: getIconTab(Icons.setting)
                     }
                 }
             }, {
@@ -61,13 +61,13 @@ const Navigation = StackNavigator(
                     lazy: true,
                     tabBarOptions: {
                         activeTintColor: 'black',
-                        inactiveTintColor: colors.border,
+                        inactiveTintColor: Colors.border,
                         showLabel: true,
                         showIcon: true,
                         style: {
-                            ...styleApp.disable_shadow,
-                            backgroundColor: colors.white,
-                            height: constants.navBarHeight
+                            ...Style.disable_shadow,
+                            backgroundColor: Colors.white,
+                            height: Constants.navBarHeight
                         }
                     },
 
@@ -80,8 +80,8 @@ const Navigation = StackNavigator(
         initialRouteName: 'Splash',
         headerMode: 'none',
         cardStyle: {
-            ...styleApp.disable_shadow,
-            backgroundColor: colors.bg_app,
+            ...Style.disable_shadow,
+            backgroundColor: Colors.bg_app,
         },
 
     }

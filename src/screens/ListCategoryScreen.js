@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { Header, MyListCategory, KeyboardHandleView } from '../components';
-import { constants } from '../configs';
+import { Constants } from '../configs';
 
 class MyList extends Component {
     render() {
@@ -20,7 +20,7 @@ class MyList extends Component {
 
 const styles = StyleSheet.create({
     containers: {
-        paddingTop: constants.statusBarHeight,
+        paddingTop: Constants.statusBarHeight,
         flex: 1
     }
 });

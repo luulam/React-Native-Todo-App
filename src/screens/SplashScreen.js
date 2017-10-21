@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { } from '../components';
-import { constants } from '../configs';
+import { Constants } from '../configs';
 
 class Splash extends Component {
     componentDidMount() {
@@ -22,7 +22,7 @@ class Splash extends Component {
 
 const styles = StyleSheet.create({
     containers: {
-        paddingTop: constants.statusBarHeight,
+        paddingTop: Constants.statusBarHeight,
         flex: 1
     }
 });

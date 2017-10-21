@@ -1,10 +1,45 @@
-import {
-    ADD_NOTIFY,
-    REMOVE_NOTIFY,
-    HIDE_DIALOG,
-    SHOW_DIALOG
-} from '../actions/app';
+import { Configs } from '../configs';
 
+import uuidV4 from 'uuid/v4';
+
+export const ADD_NOTIFY = 'ADD_NOTIFY';
+export const REMOVE_NOTIFY = 'REMOVE_NOTIFY';
+export const SHOW_DIALOG = 'SHOW_DIALOG';
+export const HIDE_DIALOG = 'HIDE_DIALOG';
+
+let addNotify = (id, title) => ({
+    type: ADD_NOTIFY,
+    id: id,
+    title: title,
+});
+
+let hideNotify = id => ({
+    type: REMOVE_NOTIFY,
+    id: id,
+});
+
+export const actions = {
+    showNotify: dispatch => (title, timeout) => {
+        let id = uuidV4();
+        dispatch(addNotify(id, title));
+        setTimeout(() => {
+            dispatch(hideNotify(id));
+        }, timeout ? timeout : Configs.time_show_notify);
+    },
+    showDialog: dispatch => (title, message, button) => {
+        dispatch({
+            type: SHOW_DIALOG,
+            title,
+            message,
+            button
+        });
+    },
+    hideDialog: dispatch => {
+        dispatch({
+            type: HIDE_DIALOG,
+        });
+    }
+};
 
 const INITIAL = {
     notifys: [],

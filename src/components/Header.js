@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { Text } from './';
-import { constants, colors } from '../configs';
+import { Constants, Colors } from '../configs';
 
 /**
  * 
@@ -30,9 +30,9 @@ let HeaderApp = ({
                         style={styles.containerTitle}
                         align={'left'}
                         text={title}
-                        fontSize={constants.font.header}
+                        fontSize={Constants.font.header}
                         bold
-                        color={colors.access}
+                        color={Colors.access}
                     />,
                     <View key={'right'}>{right}</View>
                 ]
@@ -49,9 +49,9 @@ let HeaderApp = ({
 
 let styles = StyleSheet.create({
     containers: {
-        paddingHorizontal: constants.padHor,
-        paddingVertical: constants.padVer,
-        height: constants.navBarHeight,
+        paddingHorizontal: Constants.padHor,
+        paddingVertical: Constants.padVer,
+        height: Constants.navBarHeight,
         alignItems: 'center',
         flexDirection: 'row',
     },

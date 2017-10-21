@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from '../';
-import { colors, constants, styleApp } from '../../configs';
+import { Colors, Constants, Style } from '../../configs';
 
 /**
  * 
@@ -23,22 +23,22 @@ let ButtonApp = ({
     return (
         <TouchableOpacity
             disabled={disable}
-            activeOpacity={constants.opacity}
+            activeOpacity={Constants.opacity}
             onPress={onPress}
             style={[
                 styles.containers,
                 {
-                    borderRadius: border ? constants.btnHeight / 2 : undefined,
-                    borderWidth: border ? backgroundColor != colors.white ? 0 : constants.border : 0,
-                    borderColor: colors.border,
+                    borderRadius: border ? Constants.btnHeight / 2 : undefined,
+                    borderWidth: border ? backgroundColor !== Colors.white ? 0 : Constants.border : 0,
+                    borderColor: Colors.border,
                     backgroundColor,
                     width
                 },
                 style]}>
             <Text
-                color={backgroundColor != colors.white ? colors.white : colors.text}
+                color={backgroundColor !== Colors.white ? Colors.white : Colors.text}
                 text={title}
-                fontSize={constants.font.nomal} />
+                fontSize={Constants.font.nomal} />
             {children}
         </TouchableOpacity>
     );
@@ -46,13 +46,13 @@ let ButtonApp = ({
 
 let styles = StyleSheet.create({
     containers: {
-        paddingHorizontal: constants.padHor,
-        height: constants.btnHeight,
+        paddingHorizontal: Constants.padHor,
+        height: Constants.btnHeight,
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'flex-start',
         flexDirection: 'row',
-        ...styleApp.shadow
+        ...Style.shadow
     },
     containersLeft: {
         flexDirection: 'row'
@@ -72,7 +72,7 @@ ButtonApp.propTypes = {
 
 ButtonApp.defaultProps = {
     border: true,
-    backgroundColor: colors.access
+    backgroundColor: Colors.access
 };
 
 

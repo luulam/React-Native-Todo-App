@@ -2,7 +2,7 @@
  * @dateCreate: moment('LLL')
  * 
  */
-import { realm } from '../../configs';
+import { Realm } from '../../configs';
 import uuidV4 from 'uuid/v4';
 import moment from 'moment';
 
@@ -22,7 +22,7 @@ class Task {
  * @returns {RealmObject}
  */
 const get = () => {
-    return realm.objects('Task');
+    return Realm.objects('Task');
 };
 
 /**
@@ -36,9 +36,9 @@ const create = ({
     status,
     subTask
 }) => {
-    realm.beginTransaction();
-    realm.create('List', new Task(name, status, subTask));
-    realm.commitTransaction();
+    Realm.beginTransaction();
+    Realm.create('List', new Task(name, status, subTask));
+    Realm.commitTransaction();
 };
 
 /**
@@ -47,7 +47,9 @@ const create = ({
 const remove = ({
     index
 }) => {
-    realm.delete(get().filtered(`id = ${index}`));
+    Realm.beginTransaction();
+    Realm.delete(get().filtered(`id = ${index}`));
+    Realm.commitTransaction();
 };
 
 

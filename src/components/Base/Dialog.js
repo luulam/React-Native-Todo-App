@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, BackHandler } from 'react-native';
 import { Text, Button, View } from '../';
-import { constants, colors } from '../../configs';
-import { string } from '../../assets';
-import { platform } from '../../helper';
-import actions from '../../redux/actions';
+import { Constants, Colors } from '../../configs';
+import { Strings } from '../../assets';
+import { actions } from '../../redux/AppRedux';
 
 class Dialog extends Component {
 
@@ -38,7 +37,7 @@ class Dialog extends Component {
         return (<View style={styles.containersButton}>
             {dialog.button.map((v, i) => <Button
                 key={i}
-                width={constants.appWidth / 3}
+                width={Constants.appWidth / 3}
                 title={v.title}
                 onPress={v.onPress}
                 style={styles.button}
@@ -61,12 +60,12 @@ class Dialog extends Component {
                     activeOpacity={1}
                     style={styles.containersBackground}>
                     <Text
-                        color={colors.access}
-                        text={dialog.title === undefined ? string.notification : dialog.title}
+                        color={Colors.access}
+                        text={dialog.title === undefined ? Strings.notification : dialog.title}
                         bold
                         upperCase
                         style={styles.text}
-                        fontSize={constants.font.dialog} />
+                        fontSize={Constants.font.dialog} />
                     <View style={styles.lineCenter} />
                     <Text
                         text={dialog.message}
@@ -94,20 +93,20 @@ const styles = StyleSheet.create({
     },
     containersBackground: {
         backgroundColor: 'white',
-        marginTop: constants.statusBarHeight * 2,
-        paddingVertical: constants.padVer,
-        paddingHorizontal: constants.padHor,
-        borderRadius: constants.borderRadius
+        marginTop: Constants.statusBarHeight * 2,
+        paddingVertical: Constants.padVer,
+        paddingHorizontal: Constants.padHor,
+        borderRadius: Constants.borderRadius
     },
     containersButton: {
-        marginTop: constants.padVer,
+        marginTop: Constants.padVer,
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
     lineCenter: {
-        marginTop: constants.padVer,
-        marginBottom: constants.padVer / 2,
-        backgroundColor: colors.access,
+        marginTop: Constants.padVer,
+        marginBottom: Constants.padVer / 2,
+        backgroundColor: Colors.access,
         height: 0.5,
         alignSelf: 'stretch'
     },
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     button: {
-        marginLeft: constants.padHor / 3,
+        marginLeft: Constants.padHor / 3,
     }
 });
 

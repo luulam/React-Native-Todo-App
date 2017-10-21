@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TextInput, View, StyleSheet, Platform } from 'react-native';
-import { colors, constants } from '../../configs';
+import { Colors, Constants } from '../../configs';
 import { Text, Icon } from '../';
 
 export default class InputText extends Component {
@@ -26,7 +26,7 @@ export default class InputText extends Component {
     }
 
     static defaultProps = {
-        color: colors.text,
+        color: Colors.text,
         italic: false,
         bold: false,
         UpperCase: false,
@@ -51,13 +51,13 @@ export default class InputText extends Component {
             ? <View style={styles.containersHint}>
                 <Text
                     text={hint}
-                    color={colors.access}
-                    fontSize={constants.font.sub}
+                    color={Colors.access}
+                    fontSize={Constants.font.sub}
                 />
                 {maxLength
                     ? <Text
-                        color={colors.access}
-                        fontSize={constants.font.sub}
+                        color={Colors.access}
+                        fontSize={Constants.font.sub}
                         text={`${value.length}/${maxLength}`} />
                     : null}
             </View>
@@ -71,12 +71,12 @@ export default class InputText extends Component {
             ? <View
                 style={[
                     styles.removeAll,
-                    { top: this.props.hintTop ? constants.font.sub + constants.padVer : 0 }
+                    { top: this.props.hintTop ? Constants.font.sub + Constants.padVer : 0 }
                 ]}
             >
                 <Icon
                     onPress={() => this._handRemoveAllText()}
-                    size={constants.font.nomal}
+                    size={Constants.font.nomal}
                     name="ios-close-circle-outline"
                 />
             </View>
@@ -87,8 +87,8 @@ export default class InputText extends Component {
         let { error } = this.state;
         return error
             ? <Text
-                size={constants.font.sub}
-                color={colors.error}
+                size={Constants.font.sub}
+                color={Colors.error}
                 text={error} />
             : null;
     }
@@ -132,9 +132,9 @@ export default class InputText extends Component {
                         color: color,
                         fontWeight: bold ? 'bold' : undefined,
                         fontStyle: italic ? 'italic' : undefined,
-                        fontSize: constants.font.nomal,
+                        fontSize: Constants.font.nomal,
                         ...style,
-                        paddingRight: constants.font.nomal,
+                        paddingRight: Constants.font.nomal,
                         height: height
                     }}
                     onContentSizeChange={this._onContentSizeChange}
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     borderBottom: {
-        borderBottomColor: colors.border,
-        borderBottomWidth: constants.border
+        borderBottomColor: Colors.border,
+        borderBottomWidth: Constants.border
     },
     containersHint: {
         flexDirection: 'row',
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     },
     removeAll: {
         position: 'absolute',
-        right: constants.padHor,
+        right: Constants.padHor,
         bottom: 0,
         justifyContent: 'center'
     }

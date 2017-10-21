@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Keyboard, View } from 'react-native';
-import { constants } from '../../configs';
+import { Constants } from '../../configs';
 import { platform } from '../../helper';
 class KeyboardHandleView extends Component {
 
@@ -39,7 +39,7 @@ class KeyboardHandleView extends Component {
 
     _keyboardDidShow = (event) => {
         const { hasTab } = this.props;
-        this.setState({ heightKeyBoard: hasTab ? event.endCoordinates.height - constants.navBarHeight : event.endCoordinates.height });
+        this.setState({ heightKeyBoard: hasTab ? event.endCoordinates.height - Constants.navBarHeight : event.endCoordinates.height });
     }
 
     _keyboardDidHide = (event) => {

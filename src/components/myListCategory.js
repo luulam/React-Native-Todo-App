@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FlatList, StyleSheet } from 'react-native';
 import { Text, Icon, View, InputText } from './';
-import { colors, constants } from '../configs';
-import { icon, string } from '../assets';
-import { listDB, taskDB } from '../helper';
-import actions from '../redux/actions';
+import { Colors, Constants } from '../configs';
+import { Icons, Strings } from '../assets';
+import { ListDB, TaskDB } from '../helper';
+import { actions } from '../redux/AppRedux';
 
 class MyListCategory extends Component {
 
@@ -40,19 +40,19 @@ class MyListCategory extends Component {
                                 bold
                                 upperCase
                                 text={name}
-                                color={colors.access} />,
+                                color={Colors.access} />,
                             <Text
                                 key={'number'}
                                 bold
                                 upperCase
-                                fontSize={constants.font.sub}
+                                fontSize={Constants.font.sub}
                                 text={`${numberItem ? numberItem : 'No'} items`}
-                                color={colors.gray} />
+                                color={Colors.gray} />
                         ]
                         : <Icon
                             disable
-                            name={icon.add}
-                            color={colors.access} />
+                            name={Icons.add}
+                            color={Colors.access} />
                     : <View />
                 }
             </View>
@@ -68,7 +68,7 @@ class MyListCategory extends Component {
             >
                 <Icon
                     style={styles.buttonRemove}
-                    name={icon.remove}
+                    name={Icons.remove}
                     onPress={() => this._onRemoveItem({ item, index })} />
                 <InputText
                     ref={component => { this[`input${index}`] = component; }}
@@ -76,7 +76,7 @@ class MyListCategory extends Component {
                     defaultValue={name}
                     bold
                     upperCase
-                    color={colors.access}
+                    color={Colors.access}
                     onUnFocus={() => this._onUnFocus({ item, index, text: this[`input${index}`].text() })} />
 
             </View >
@@ -96,7 +96,7 @@ class MyListCategory extends Component {
     componentWillMount() {
         //set data reload view , add event change 
         this.setState({ data: this._getUpdateDataToDB() }, () => {
-            listDB.get().addListener((puppies, changes) => {
+            ListDB.get().addListener((puppies, changes) => {
                 this.setState({ data: this._getUpdateDataToDB() });
             });
         });
@@ -121,13 +121,13 @@ class MyListCategory extends Component {
     }
 
     componentWillUnmount() {
-        listDB.get().removeAllListeners();
+        ListDB.get().removeAllListeners();
     }
 
     _getUpdateDataToDB = () => {
         //add List 'ALL' first arr and add 'ADD' last arr
-        let sourceData = [{ name: 'ALL', listTask: taskDB.get(), all: true }]
-            .concat(listDB.get().map(value => Object.assign({}, value)))
+        let sourceData = [{ name: 'ALL', listTask: TaskDB.get(), all: true }]
+            .concat(ListDB.get().map(value => Object.assign({}, value)))
             .concat({});
 
         //add 'Round' if length odd number then add []
@@ -137,17 +137,17 @@ class MyListCategory extends Component {
     _keyExtractor = (item, index) => index;
 
     _onRemoveItem = ({ item, index }) => {
-        this.props.showDialog(undefined, string.noti_remove_category, [
+        this.props.showDialog(undefined, Strings.noti_remove_category, [
             {
-                title: string.ok, onPress: () => {
+                title: Strings.ok, onPress: () => {
                     this.setState({ select: undefined }, () => {
-                        listDB.remove({ id: item.id });
+                        ListDB.remove({ id: item.id });
                     });
                     this.props.hideDialog();
-                    this.props.showNotify(string.remove_success);
+                    this.props.showNotify(Strings.remove_success);
                 }
             },
-            { title: string.canner, onPress: () => this.props.hideDialog() }
+            { title: Strings.canner, onPress: () => this.props.hideDialog() }
         ]);
     }
 
@@ -157,9 +157,9 @@ class MyListCategory extends Component {
             return;
         }
         if (item.name === undefined) {
-            listDB.create({ name: text });
+            ListDB.create({ name: text });
         } else {
-            listDB.edit({ id: item.id, name: text });
+            ListDB.edit({ id: item.id, name: text });
         }
         this.setState({ select: undefined });
     }
@@ -171,7 +171,7 @@ class MyListCategory extends Component {
                 console.log('last _onLongPressItem', this.state);
             });
         } else {
-            onOpenTask && onOpenTask({ item, index })
+            onOpenTask && onOpenTask({ item, index });
         }
 
     }
@@ -195,21 +195,21 @@ let styles = StyleSheet.create({
     containerItemLeft: {
         flex: 1,
         height: 126,
-        marginLeft: constants.padHor,
-        paddingTop: constants.padVer,
+        marginLeft: Constants.padHor,
+        paddingTop: Constants.padVer,
 
-        borderColor: colors.border,
+        borderColor: Colors.border,
         borderBottomWidth: 0.5,
         borderRightWidth: 0.5
     },
     containerItemRight: {
         flex: 1,
         height: 126,
-        marginRight: constants.padHor,
-        paddingLeft: constants.padHor,
-        paddingTop: constants.padVer,
+        marginRight: Constants.padHor,
+        paddingLeft: Constants.padHor,
+        paddingTop: Constants.padVer,
 
-        borderColor: colors.border,
+        borderColor: Colors.border,
         borderBottomWidth: 0.5,
     },
     containerItemAdd: {

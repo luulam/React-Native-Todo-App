@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { Text } from '../';
-import { colors, constants, styleApp } from '../../configs';
+import { Colors, Constants, Style } from '../../configs';
 
 
 class Notify extends Component {
@@ -21,7 +21,7 @@ class Notify extends Component {
                 style={styles.border}
                 key={i}>
                 <Text
-                    color={colors.text_light}
+                    color={Colors.text_light}
                     text={v.title} />
             </View>
         );
@@ -39,25 +39,25 @@ class Notify extends Component {
 
 const styles = StyleSheet.create({
     containers: {
-        bottom: constants.padVer * 2,
+        bottom: Constants.padVer * 2,
         left: 0,
         right: 0,
         justifyContent: 'center',
         position: 'absolute',
     },
     border: {
-        backgroundColor: colors.access,
-        padding: constants.pad,
-        marginBottom: constants.padVer,
-        marginHorizontal: constants.padHor * 2,
-        height: constants.btnHeight,
-        borderRadius: constants.btnHeight / 2,
+        backgroundColor: Colors.access,
+        padding: Constants.pad,
+        marginBottom: Constants.padVer,
+        marginHorizontal: Constants.padHor * 2,
+        height: Constants.btnHeight,
+        borderRadius: Constants.btnHeight / 2,
         alignItems: 'center',
         justifyContent: 'center',
-        ...styleApp.shadow
+        ...Style.shadow
     },
     text: {
-        color: colors.text_light
+        color: Colors.text_light
     }
 });
 

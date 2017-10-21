@@ -2,7 +2,7 @@
  * @dateCreate: moment('LLL')
  * 
  */
-import { realm } from '../../configs';
+import { Realm } from '../../configs';
 import uuidV4 from 'uuid/v4';
 import moment from 'moment';
 class List {
@@ -20,7 +20,7 @@ class List {
  * @returns {RealmObject}
  */
 const get = () => {
-    return realm.objects('List');
+    return Realm.objects('List');
 };
 
 /**
@@ -32,18 +32,18 @@ const create = ({
     listTask
 }) => {
     if (name === undefined || name === null || name === '') { throw 'name required is not null'; }
-    realm.beginTransaction();
-    realm.create('List', new List(name, listTask));
-    realm.commitTransaction();
+    Realm.beginTransaction();
+    Realm.create('List', new List(name, listTask));
+    Realm.commitTransaction();
 };
 
 const edit = ({
     name, id
 }) => {
-    realm.beginTransaction();
-    var objectSchema = realm.objectForPrimaryKey('List', id);
+    Realm.beginTransaction();
+    var objectSchema = Realm.objectForPrimaryKey('List', id);
     objectSchema.name = name;
-    realm.commitTransaction();
+    Realm.commitTransaction();
 };
 
 /**
@@ -52,10 +52,9 @@ const edit = ({
 const remove = ({
     id
 }) => {
-    console.log('id', id, get().map(value => Object.assign({}, value)));
-    realm.beginTransaction();
-    realm.delete(get().filtered(`id = '${id}'`));
-    realm.commitTransaction();
+    Realm.beginTransaction();
+    Realm.delete(get().filtered(`id = '${id}'`));
+    Realm.commitTransaction();
 };
 
 export default {
