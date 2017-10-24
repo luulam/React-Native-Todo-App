@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 import UserDB from './dataLocal/UserDB';
-import ListDB from './dataLocal/ListDB';
+import CategoryDB from './dataLocal/CategoryDB';
 import TaskDB from './dataLocal/TaskDB';
 
 /**
@@ -9,4 +9,4 @@ import TaskDB from './dataLocal/TaskDB';
  */
 const platform = Platform.OS === 'ios' ? true : false;
 
-export { platform, UserDB, ListDB, TaskDB };
+export { platform, UserDB, CategoryDB, TaskDB };

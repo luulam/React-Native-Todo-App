@@ -14,8 +14,8 @@ let UserSchema = {
     }
 };
 
-let ListSchema = {
-    name: 'List',
+let CategorySchema = {
+    name: 'Category',
     primaryKey: 'id',
     properties: {
         id: { type: 'string' },
@@ -42,5 +42,5 @@ let TaskSchema = {
 export default new Realm({
     // path: Realm.defaultPath,
     // schemaVersion: Realm.schemaVersion(Realm.defaultPath),
-    schema: [UserSchema, ListSchema, TaskSchema]
+    schema: [UserSchema, CategorySchema, TaskSchema]
 });

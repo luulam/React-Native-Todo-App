@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-import { Header, MyListCategory, KeyboardHandleView } from '../components';
+import { Header, CategoryList, KeyboardHandleView } from '../components';
 import { Constants } from '../configs';
 
 class MyList extends Component {
@@ -11,7 +11,7 @@ class MyList extends Component {
                 style={styles.containers}
             >
                 <Header title={'My Lists'} />
-                <MyListCategory />
+                <CategoryList />
                 <KeyboardHandleView hasTab />
             </View>
         );

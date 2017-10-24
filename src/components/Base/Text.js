@@ -38,7 +38,7 @@ let TextApp = ({
             textDecorationLine: under ? 'underline' : 'none'
         }]}
     >
-        {upperCase ? text.toUpperCase() : text}
+        {typeof text === 'string' && upperCase ? text.toUpperCase() : text}
         {children}
     </Text>;
 };

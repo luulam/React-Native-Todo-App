@@ -5,6 +5,7 @@
 import { Realm } from '../../configs';
 import uuidV4 from 'uuid/v4';
 import moment from 'moment';
+
 class List {
     constructor(name, listTask = []) {
         this.id = uuidV4();
@@ -16,11 +17,15 @@ class List {
 }
 
 /**
- * get list task
+ * get list Category
  * @returns {RealmObject}
  */
 const get = () => {
-    return Realm.objects('List');
+    return Realm.objects('Category');
+};
+
+const getByID = (id) => {
+    return Realm.objectForPrimaryKey('Category', id);
 };
 
 /**
@@ -28,22 +33,22 @@ const get = () => {
  * @param {string} name
  */
 const create = ({
-    name,
-    listTask
+    name
 }) => {
-    if (name === undefined || name === null || name === '') { throw 'name required is not null'; }
     Realm.beginTransaction();
-    Realm.create('List', new List(name, listTask));
+    let id = Realm.create('Category', new List(name)).id;
     Realm.commitTransaction();
+    return getByID(id);
 };
 
 const edit = ({
-    name, id
+    id, name
 }) => {
     Realm.beginTransaction();
-    var objectSchema = Realm.objectForPrimaryKey('List', id);
+    let objectSchema = getByID(id);
     objectSchema.name = name;
     Realm.commitTransaction();
+    return getByID(id);
 };
 
 /**
@@ -53,8 +58,9 @@ const remove = ({
     id
 }) => {
     Realm.beginTransaction();
-    Realm.delete(get().filtered(`id = '${id}'`));
+    Realm.delete(getByID(id));
     Realm.commitTransaction();
+    return id;
 };
 
 export default {

@@ -11,7 +11,7 @@ import Dialog from './Base/Dialog';
 import View from './Base/View';
 
 import Header from './Header';
-import MyListCategory from './myListCategory';
+import CategoryList from './CategoryList';
 
 export {
     Text,
@@ -22,6 +22,6 @@ export {
     InputText,
     KeyboardHandleView,
     Dialog,
-    MyListCategory,
+    CategoryList,
     View
 };

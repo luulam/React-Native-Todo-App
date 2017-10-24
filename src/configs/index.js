@@ -4,7 +4,8 @@ import Realm from './Realm';
 const Configs = {
     client_id: '',
     client_secret: '',
-    time_show_notify: 2000
+    time_show_notify: 2000,
+    longPress: 700,
 };
 
 export {
