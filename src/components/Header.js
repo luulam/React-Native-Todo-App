@@ -39,7 +39,7 @@ let HeaderApp = ({
                 : //full header
                 [
                     <View key={'left'}>{left}</View>,
-                    <View key={'center'} style={styles.containerCenter}>{children}</View>,
+                    <View key={'center'} style={styles.containerCenter}>{center}</View>,
                     <View key={'right'}>{right}</View>
                 ]}
 
@@ -49,7 +49,7 @@ let HeaderApp = ({
 
 let styles = StyleSheet.create({
     containers: {
-        paddingHorizontal: Constants.padHor,
+        paddingHorizontal: Constants.padHor/2,
         paddingVertical: Constants.padVer,
         height: Constants.navBarHeight,
         alignItems: 'center',
@@ -75,7 +75,7 @@ HeaderApp.propTypes = {
     children: PropTypes.any,
     left: PropTypes.any,
     backPress: PropTypes.func,
-    center: PropTypes.string
+    center: PropTypes.any
 };
 
 HeaderApp.defaultProps = {

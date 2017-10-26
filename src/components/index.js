@@ -12,6 +12,7 @@ import View from './Base/View';
 
 import Header from './Header';
 import CategoryList from './CategoryList';
+import FloatActionButton from './FloatActionButton';
 
 export {
     Text,
@@ -23,5 +24,6 @@ export {
     KeyboardHandleView,
     Dialog,
     CategoryList,
-    View
+    View,
+    FloatActionButton
 };

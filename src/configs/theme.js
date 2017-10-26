@@ -35,7 +35,8 @@ const Constants = {
         dialog: 22,
         nomal: 16,
         sub: 12,
-        icon: 32
+        icon: 32,
+        h2: 24
     },
     fab: 42,
     icon: 38,

@@ -11,5 +11,7 @@ export default {
     send: 'ios-send-outline',
     message: 'ios-chatbubbles-outline',
     setting: 'ios-settings-outline',
-    remove: 'ios-trash-outline'
+    remove: 'ios-trash-outline',
+    all: 'ios-keypad',
+    more: 'md-more'
 };

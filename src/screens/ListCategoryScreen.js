@@ -11,10 +11,15 @@ class MyList extends Component {
                 style={styles.containers}
             >
                 <Header title={'My Lists'} />
-                <CategoryList />
+                <CategoryList onOpenTask={this.onOpenTask} />
                 <KeyboardHandleView hasTab />
             </View>
         );
+    }
+
+    onOpenTask = ({ item, index }) => {
+        const { navigation } = this.props;
+        navigation && navigation.navigate('DetailList', { params: item });
     }
 }
 
