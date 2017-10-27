@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Easing, Animated } from 'react-native';
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation';
 import { Icon } from '../components';
 //all screen
@@ -14,7 +15,47 @@ import { Icons } from '../assets';
 const getIconTab = (name) => ({ tintColor }) => (
     <Icon name={name} color={tintColor} disable />
 );
+/**
+ * see url
+ * https://stackoverflow.com/questions/43974979/react-native-react-navigation-transitions
+ */
+let MyTransition = (index, position) => {
+    const inputRange = [index - 1, index, index + 1];
 
+    const opacity = position.interpolate({
+        inputRange,
+        outputRange: [0.8, 1, 1],
+    });
+
+    const scaleY = position.interpolate({
+        inputRange,
+        outputRange: ([0.8, 1, 1]),
+    });
+
+    return {
+        opacity,
+        transform: [
+            { scaleY }
+        ]
+    };
+};
+let TransitionConfiguration = () => {
+    return {
+        // Define scene interpolation, eq. custom transition
+        screenInterpolator: (sceneProps) => {
+
+            const { position, scene } = sceneProps;
+            const { index } = scene;
+
+            return MyTransition(index, position);
+        },
+        transitionSpec: ({
+            duration: 800,
+            easing: Easing.bezier(0.2833, 0.99, 0.31833, 0.99),
+            timing: Animated.timing,
+        })
+    }
+};
 const Navigation = StackNavigator(
     {
         Splash: {
@@ -33,6 +74,7 @@ const Navigation = StackNavigator(
                             }
                         },
                         {
+                            transitionConfig: TransitionConfiguration,
                             initialRouteName: 'ListCategory',
                             headerMode: 'none',
                             cardStyle: {
