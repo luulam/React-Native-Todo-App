@@ -15,10 +15,11 @@ class MyListCategory extends Component {
     renderItem = ({ item, index }) => {
         const { selectEdit } = this.props;
         let isEditView = selectEdit !== undefined && selectEdit === index;
-
+        let isDisable = selectEdit !== undefined;
         return <CategoryItem
             index={index}
             item={item}
+            isDisable={isDisable}
             isEditView={isEditView}
             isRoundView={item.isRound !== undefined}
             isAddView={item.isAdd}

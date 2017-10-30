@@ -14,6 +14,7 @@ import { Icons } from '../../assets';
 let CategoryItem = ({
     index,
     item,
+    isDisable,
     isEditView,
     isRoundView,
     isAddView,
@@ -27,11 +28,11 @@ let CategoryItem = ({
     if (!isEditView) {
         return (
             <View
-                disable={isEditView}
+                disable={isDisable && !isRoundView}
                 onPress={() => onPressItem({ item, index })}
                 onLongPress={() => onLongPressItem({ item, index })}
                 delayLongPress={Configs.longPress}
-                disTouch={isRoundView}
+                disTouch={isDisable && !isRoundView}
                 style={[
                     index % 2 === 0 ? styles.containerItemLeft : styles.containerItemRight,
                     isAddView ? styles.containerItemAdd : null
