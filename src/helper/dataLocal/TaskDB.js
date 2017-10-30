@@ -7,8 +7,9 @@ import uuidV4 from 'uuid/v4';
 import moment from 'moment';
 
 class Task {
-    constructor(name, status, subTask) {
+    constructor(name, status, subTask, idCategory) {
         this.id = uuidV4();
+        this.idCategory = idCategory;
         this.name = name;
         this.status = status;
         this.subTask = subTask;
@@ -26,6 +27,24 @@ const get = () => {
 };
 
 /**
+ * get list task
+ * @param {string} id
+ * @returns {RealmObject}
+ */
+const getByID = (id) => {
+    return Realm.objectForPrimaryKey('Task', id);
+};
+
+/**
+ * 
+ * @param {*} id 
+ * @returns {RealmObject}
+ */
+const getByCategory = (id) => {
+    return Realm.objects('Task').filtered('id = ${id}');
+};
+
+/**
  * create one task
  * @param {string} name
  * @param {string} status 
@@ -34,27 +53,57 @@ const get = () => {
 const create = ({
     name,
     status,
-    subTask
+    subTask,
+    idCategory
 }) => {
     Realm.beginTransaction();
-    Realm.create('List', new Task(name, status, subTask));
+    let id = Realm.create('Task', new Task(name, status, subTask, idCategory)).id;
     Realm.commitTransaction();
+    return getByID(id);
+};
+
+/**
+ * 
+ * @param {string} id 
+ * @param {string} name 
+ * @returns {RealmObject}
+ */
+const edit = ({
+    id,
+    name,
+    status,
+    subTask,
+    idCategory
+}) => {
+    if (id !== undefined) { throw 'id not null'; }
+    Realm.beginTransaction();
+    let objectSchema = getByID(id);
+    if (name !== undefined) { objectSchema.name = name; }
+    if (status !== undefined) { objectSchema.status = status; }
+    if (subTask !== undefined) { objectSchema.subTask = subTask; }
+    if (idCategory !== undefined) { objectSchema.idCategory = idCategory; }
+    Realm.commitTransaction();
+    return getByID(id);
 };
 
 /**
  * @param {int} index 
  */
 const remove = ({
-    index
+    id
 }) => {
     Realm.beginTransaction();
-    Realm.delete(get().filtered(`id = ${index}`));
+    Realm.delete(getByID(id));
     Realm.commitTransaction();
+    return id;
 };
 
 
 export default {
     get,
+    getByID,
+    getByCategory,
     create,
+    edit,
     remove
 };
