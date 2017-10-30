@@ -60,11 +60,12 @@ const Navigation = StackNavigator(
                     swipeEnabled: false,
                     lazy: true,
                     tabBarOptions: {
-                        activeTintColor: 'black',
-                        inactiveTintColor: Colors.border,
+                        activeTintColor: Colors.access,
+                        inactiveTintColor: Colors.black,
                         showLabel: true,
                         showIcon: true,
                         style: {
+                            paddingVertical:8,
                             ...Style.disable_shadow,
                             backgroundColor: Colors.white,
                             height: Constants.navBarHeight

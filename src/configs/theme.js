@@ -16,7 +16,7 @@ const Colors = {
     brown: '#693504',
     red: '#db2828',
     white: '#ffffff',
-    black: '#0f0f0f'
+    black: '#4c4c4c'
 };
 
 const Constants = {
