@@ -1,91 +1,77 @@
-import { CategoryDB, TaskDB } from '../helper';
+import { TaskDB } from '../helper';
 
-export const FETCH_TASK = 'FETCH_TASK';
-export const ADD_TASK = 'ADD_TASK';
-export const EDIT_TASK = 'EDIT_TASK';
-export const REMOVE_TASK = 'DELETE_TASK';
-export const UPDATE_SELECT_EDIT = 'UPDATE_SELECT_EDIT';
+const FETCH_TASK = 'FETCH_TASK';
+const ADD_TASK = 'ADD_TASK';
+const EDIT_TASK = 'EDIT_TASK';
+const REMOVE_TASK = 'DELETE_TASK';
 
 import { List } from 'immutable';
 
 export const actions = {
-    fetchCategory: dispatch => ({ id }) => {
+    fetchTask: dispatch => ({ id }) => {
         dispatch({
             type: FETCH_TASK,
-            categoryItems: TaskDB.get()
+            taskItems: TaskDB.getByCategory({ id }).map(value => Object.assign({}, value))
         });
     },
-    addCategory: dispatch => ({ name }) => {
+    addTask: dispatch => ({ name, idCategory }) => {
         dispatch({
             type: ADD_TASK,
-            category: CategoryDB.create({ name })
+            taskItem: Object.assign({}, TaskDB.create({ name, idCategory }))
         });
     },
-    editCategory: dispatch => ({ id, name }) => {
+    editTask: dispatch => ({ id, name, isComplete, isStar, subTask, idCategory }) => {
         dispatch({
             type: EDIT_TASK,
-            category: CategoryDB.edit({ id, name })
+            taskItem: TaskDB.edit({ id, name, isComplete, isStar, subTask, idCategory })
         });
     },
-    deleteCategory: dispatch => ({ id }) => {
+    deleteTask: dispatch => ({ id }) => {
         dispatch({
             type: REMOVE_TASK,
-            id: CategoryDB.remove({ id })
-        });
-    },
-    updateSelectEdit: dispatch => ({ value }) => {
-        dispatch({
-            type: UPDATE_SELECT_EDIT,
-            valueSelectEdit: value
+            id: TaskDB.remove({ id })
         });
     }
 };
 
 const INITIAL = {
-    list: [],
-    selectEdit: undefined,
-    selected: (new Map())
+    listTask: [],
+    selectEdit: undefined
 };
 
 export default (state = INITIAL, action) => {
-    const { categoryItems, category, id, valueSelectEdit } = action;
-    const { list } = state;
+    const { taskItems, taskItem, id } = action;
+    const { listTask } = state;
     switch (action.type) {
 
-        case FETCH_TASK:
+        case FETCH_TASK: {
             return Object.assign({}, state, {
-                list: categoryItems
-            });
-
-        case ADD_TASK:
-            let indexADD = list.length - (list[list.length - 1] && list[list.length - 1].isRound ? 2 : 1);
-
-            return Object.assign({}, state, {
-                list: checkAddDataRound(List(list).insert(indexADD, Object.assign({}, category))),
-                selectEdit: undefined
-            });
-
-        case EDIT_TASK: {
-            let index = list.findIndex(value => value.id === category.id);
-
-            return Object.assign({}, state, {
-                list: List(list).update(index, value => category).toArray(),
-                selectEdit: undefined
+                listTask: taskItems
             });
         }
 
-        case REMOVE_TASK:
-            let index = list.findIndex(value => value.id === id);
+        case ADD_TASK: {
+            return Object.assign({}, state, {
+                listTask: List(listTask).push(taskItem).toArray(),
+            });
+        }
+
+        case EDIT_TASK: {
+            let index = listTask.findIndex(value => value.id === taskItem.id);
+
+            return Object.assign({}, state, {
+                listTask: List(listTask).update(index, value => taskItem).toArray(),
+            });
+        }
+
+        case REMOVE_TASK: {
+            let index = listTask.findIndex(value => value.id === id);
             if (index === -1) { return state; }
             return Object.assign({}, state, {
-                list: checkAddDataRound(List(list).delete(index)),
-                selectEdit: undefined
+                listTask: List(listTask).delete(index).toArray()
             });
+        }
 
-        case UPDATE_SELECT_EDIT:
-            return Object.assign({}, state, {
-                selectEdit: valueSelectEdit
-            });
         default:
             return state;
     }

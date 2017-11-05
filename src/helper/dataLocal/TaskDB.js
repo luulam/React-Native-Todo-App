@@ -7,11 +7,12 @@ import uuidV4 from 'uuid/v4';
 import moment from 'moment';
 
 class Task {
-    constructor(name, status, subTask, idCategory) {
+    constructor(name, isComplete, isStar, subTask, idCategory) {
         this.id = uuidV4();
         this.idCategory = idCategory;
         this.name = name;
-        this.status = status;
+        if (isComplete !== undefined) { this.isComplete = isComplete; }
+        if (isStar !== undefined) { this.isStar = isStar; }
         this.subTask = subTask;
         this.timeCreate = moment().toString();
         this.timeUpdate = moment().toString();
@@ -40,8 +41,9 @@ const getByID = (id) => {
  * @param {*} id 
  * @returns {RealmObject}
  */
-const getByCategory = (id) => {
-    return Realm.objects('Task').filtered('id = ${id}');
+const getByCategory = ({ id }) => {
+    if (!id) { return get(); }
+    return Realm.objects('Task').filtered(`id = ${id}`);
 };
 
 /**
@@ -52,12 +54,13 @@ const getByCategory = (id) => {
  */
 const create = ({
     name,
-    status,
+    isComplete,
+    isStar,
     subTask,
     idCategory
 }) => {
     Realm.beginTransaction();
-    let id = Realm.create('Task', new Task(name, status, subTask, idCategory)).id;
+    let id = Realm.create('Task', new Task(name, isComplete, isStar, subTask, idCategory)).id;
     Realm.commitTransaction();
     return getByID(id);
 };
@@ -71,7 +74,8 @@ const create = ({
 const edit = ({
     id,
     name,
-    status,
+    isComplete,
+    isStar,
     subTask,
     idCategory
 }) => {
@@ -79,7 +83,8 @@ const edit = ({
     Realm.beginTransaction();
     let objectSchema = getByID(id);
     if (name !== undefined) { objectSchema.name = name; }
-    if (status !== undefined) { objectSchema.status = status; }
+    if (isComplete !== undefined) { objectSchema.isComplete = isComplete; }
+    if (isStar !== undefined) { objectSchema.isStar = isStar; }
     if (subTask !== undefined) { objectSchema.subTask = subTask; }
     if (idCategory !== undefined) { objectSchema.idCategory = idCategory; }
     Realm.commitTransaction();

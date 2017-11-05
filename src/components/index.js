@@ -13,6 +13,7 @@ import View from './Base/View';
 import Header from './Header';
 import CategoryList from './CategoryList';
 import FloatActionButton from './FloatActionButton';
+import TaskList from './TaskList';
 
 export {
     Text,
@@ -25,5 +26,6 @@ export {
     Dialog,
     CategoryList,
     View,
-    FloatActionButton
+    FloatActionButton,
+    TaskList
 };
