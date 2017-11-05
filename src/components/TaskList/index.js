@@ -13,36 +13,48 @@ class MyListCategory extends Component {
 
     }
     renderItem = ({ item, index }) => {
+        const { selectEdit, selectExpand } = this.props;
         return <TaskItem
             index={index}
             item={item}
+            isExpand={selectExpand === index}
+            isEdit={selectEdit}
+            onPress={() => this.onPressItem({ item, index })}
         />;
     }
     render() {
         const { listTask } = this.props;
+        return <FlatList
+            keyboardShouldPersistTaps={'handled'}
+            data={listTask}
+            extraData={this.props}
+            keyExtractor={(item, index) => index}
+            renderItem={this.renderItem}
+        />;
+    }
 
-        console.log('renderTaskList ', listTask);
-        return <View />;
-        // return <FlatList
-        //     keyboardShouldPersistTaps={'handled'}
-        //     data={list}
-        //     extraData={this.props}
-        //     keyExtractor={(item, index) => index}
-        //     renderItem={this.renderItem}
-        //     numColumns={2}
-        // />;
+    onPressItem = ({ item, index }) => {
+        let { updateSelectExpand, selectExpand } = this.props;
+        let value = selectExpand === undefined ? index : selectExpand === index ? undefined : index;
+        updateSelectExpand(value);
     }
 }
 
 const mapStateToProps = ({ task }) => ({
-    listTask: task.listTask
+    listTask: task.listTask,
+    selectEdit: task.selectEdit,
+    selectExpand: task.selectExpand
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     fetchTask: (id) => Task.actions.fetchTask(dispatch)({ id }),
     addTask: ({ name, isComplete, isStar, subTask, idCategory }) => Task.actions.addTask(dispatch)({ name, isComplete, isStar, subTask, idCategory }),
     deleteTask: (id) => Task.actions.deleteTask(dispatch)({ id }),
-    editTask: ({ id, name, isComplete, isStar, subTask, idCategory }) => Task.actions.editTask(dispatch)({ id, name, isComplete, isStar, subTask, idCategory })
+    editTask: ({ id, name, isComplete, isStar, subTask, idCategory }) => Task.actions.editTask(dispatch)({ id, name, isComplete, isStar, subTask, idCategory }),
+    updateSelectEdit: (value) => Task.actions.updateSelectEdit(dispatch)({ value }),
+    updateSelectExpand: (value) => Task.actions.updateSelectExpand(dispatch)({ value })
+
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyListCategory);

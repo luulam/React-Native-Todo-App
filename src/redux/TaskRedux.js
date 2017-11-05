@@ -4,6 +4,8 @@ const FETCH_TASK = 'FETCH_TASK';
 const ADD_TASK = 'ADD_TASK';
 const EDIT_TASK = 'EDIT_TASK';
 const REMOVE_TASK = 'DELETE_TASK';
+const UPDATE_SELECT_EDIT = 'UPDATE_SELECT_EDIT';
+const UPDATE_SELECT_EXPAND = 'UPDATE_SELECT_EXPAND';
 
 import { List } from 'immutable';
 
@@ -31,16 +33,29 @@ export const actions = {
             type: REMOVE_TASK,
             id: TaskDB.remove({ id })
         });
+    },
+    updateSelectEdit: dispatch => ({ value }) => {
+        dispatch({
+            type: UPDATE_SELECT_EDIT,
+            valueSelectEdit: value
+        });
+    },
+    updateSelectExpand: dispatch => ({ value }) => {
+        dispatch({
+            type: UPDATE_SELECT_EXPAND,
+            valueSelectExpand: value
+        });
     }
 };
 
 const INITIAL = {
     listTask: [],
-    selectEdit: undefined
+    selectEdit: undefined,
+    selectExpand: undefined,
 };
 
 export default (state = INITIAL, action) => {
-    const { taskItems, taskItem, id } = action;
+    const { taskItems, taskItem, id, valueSelectEdit, valueSelectExpand } = action;
     const { listTask } = state;
     switch (action.type) {
 
@@ -72,6 +87,17 @@ export default (state = INITIAL, action) => {
             });
         }
 
+        case UPDATE_SELECT_EDIT: {
+            return Object.assign({}, state, {
+                selectEdit: valueSelectEdit
+            });
+        }
+
+        case UPDATE_SELECT_EXPAND: {
+            return Object.assign({}, state, {
+                selectExpand: valueSelectExpand
+            });
+        }
         default:
             return state;
     }

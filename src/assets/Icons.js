@@ -13,5 +13,13 @@ export default {
     setting: 'ios-settings-outline',
     remove: 'ios-trash-outline',
     all: 'ios-keypad',
-    more: 'md-more'
+    more: 'md-more',
+    attack: 'ios-attach-outline',
+    sub: 'ios-git-merge-outline',
+    share: 'ios-share-outline',
+    move: 'ios-log-in-outline',
+    alarm: 'ios-alarm-outline',
+    star: 'ios-star-outline',
+    starSelect: 'ios-star',
+    edit: 'ios-brush-outline'
 };
