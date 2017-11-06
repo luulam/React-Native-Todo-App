@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-import { Header, Icon, Text, FloatActionButton } from '../components';
+import { Header, Icon, Text, FloatActionButton, TaskList } from '../components';
 import { Constants, Colors } from '../configs';
 import { Icons } from '../assets';
 
@@ -37,6 +37,7 @@ class DetailList extends Component {
                 style={styles.containers}
             >
                 {this.renderHeader()}
+                <TaskList/>
                 <FloatActionButton />
             </View>
         );

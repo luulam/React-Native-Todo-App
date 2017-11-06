@@ -32,15 +32,28 @@ let TaskSchema = {
     properties: {
         id: { type: 'string' },
         name: { type: 'string' },
-        status: { type: 'string' },
-        subTask: { type: 'data' },
+        isComplete: { type: 'bool', default: false },
+        isStar: { type: 'bool', default: false },
+        listTask: { type: 'list', objectType: 'SubTask' },
         timeCreate: { type: 'string' },
         timeUpdate: { type: 'string' },
     }
 };
 
+let SubTaskSchema = {
+    name: 'SubTask',
+    primaryKey: 'id',
+    properties: {
+        id: { type: 'string' },
+        name: { type: 'string' },
+        isComplete: { type: 'bool', default: false },
+        timeCreate: { type: 'string' },
+        timeUpdate: { type: 'string' },
+    }
+}
+
 export default new Realm({
-    // path: Realm.defaultPath,
+    path: 'BangTodo.realm',
     // schemaVersion: Realm.schemaVersion(Realm.defaultPath),
-    schema: [UserSchema, CategorySchema, TaskSchema]
+    schema: [UserSchema, CategorySchema, TaskSchema, SubTaskSchema]
 });
