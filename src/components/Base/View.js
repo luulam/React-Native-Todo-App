@@ -8,7 +8,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
  * @return <View/>
  */
 
-let ViewApp = ({
+const ViewApp = ({
     style,
     disable,
     children,
@@ -33,14 +33,14 @@ let ViewApp = ({
     );
 };
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
     containersDisable: {
         position: 'absolute',
         top: 0,
         right: 0,
         bottom: 0,
         left: 0,
-        backgroundColor: 'rgba(255, 255, 255, .8)'
+        backgroundColor: 'rgba(255, 255, 255, .9)'
     }
 });
 
