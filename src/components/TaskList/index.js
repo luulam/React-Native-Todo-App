@@ -14,13 +14,17 @@ class MyListCategory extends Component {
     }
     renderItem = ({ item, index }) => {
         const { selectEdit, selectExpand } = this.props;
+
         return <TaskItem
             index={index}
             item={item}
             isExpand={selectExpand === index}
-            isEdit={selectEdit}
+            isEdit={selectEdit === index}
+            isEditMode={selectEdit !== undefined}
             onChangeStar={() => this.onChangeStar({ item, index })}
             onPress={() => this.onPressItem({ item, index })}
+            onEdit={() => this.onEditItem({ item, index })}
+            onUnFocus={this.onUnFocus}
         />;
     }
     render() {
@@ -43,6 +47,19 @@ class MyListCategory extends Component {
     onChangeStar = ({ item, index }) => {
         let { editTask } = this.props;
         editTask({ isStar: !item.isStar, id: item.id });
+    }
+
+    onEditItem = ({ item, index }) => {
+        const { updateSelectEdit } = this.props;
+        updateSelectEdit(index);
+    }
+
+    onUnFocus = ({ item, index, text }) => {
+        const { editTask, updateSelectEdit } = this.props;
+        if (text !== '' && item.name !== text) {
+            editTask({ id: item.id, name: text, });
+        }
+        updateSelectEdit(undefined);
     }
 }
 

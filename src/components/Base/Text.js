@@ -43,12 +43,6 @@ let TextApp = ({
     </Text>;
 };
 
-let styles = StyleSheet.create({
-    containers: {
-
-    }
-});
-
 TextApp.propTypes = {
     style: PropTypes.any,
     text: PropTypes.string,
@@ -71,7 +65,6 @@ TextApp.defaultProps = {
     fontSize: Constants.font.nomal,
     numberOfLines: undefined,
     ellipsizeMode: 'tail',
-    style: styles.constant,
     align: 'left'
 };
 

@@ -16,32 +16,51 @@ let TaskItem = ({
     item,
     isExpand,
     isEdit,
+    isEditMode,
+    onUnFocus,
     onPress,
-    onChangeStar
+    onChangeStar,
+    onEdit
 }) => {
     let { isStar } = item;
     return (
-        <View style={styles.containerItem} onPress={onPress} disTouch={false}>
-            <Text text={item.name} />
+        <View
+            style={styles.containerItem}
+            onPress={onPress}
+            disTouch={isEditMode}
+            disable={isEditMode && !isEdit}>
+
+            <View style={{ flexDirection: 'row' }}>
+                {isEditMode && isEdit
+                    ? <InputText
+                        ref={component => { this[`input${index}`] = component; }}
+                        autoFocus
+                        defaultValue={item.name}
+                        onUnFocus={() => onUnFocus({ item, index, text: this[`input${index}`].text() })} />
+                    : <Text text={item.name} style={{ flex: 1 }} />
+                }
+                {isExpand
+                    ? <View style={styles.containerEdit}>
+                        <Icon
+                            name={isStar ? Icons.starSelect : Icons.star}
+                            color={isStar ? Colors.yellow : undefined}
+                            size={Constants.font.icon / 2}
+                            onPress={onChangeStar}
+                        />
+                        <Icon name={Icons.edit} size={Constants.font.icon / 2} onPress={onEdit} />
+                    </View>
+                    : null}
+            </View>
+
             {isExpand
                 ? <Text style={styles.textSub}
                     text={item.timeCreate}
                     color={Colors.border}
                     fontSize={Constants.font.sub} />
                 : null}
+
             {isExpand
-                ? <View style={styles.containerEdit}>
-                    <Icon
-                        name={isStar ? Icons.starSelect : Icons.star}
-                        color={isStar ? Colors.yellow : undefined}
-                        size={Constants.font.icon / 2}
-                        onPress={onChangeStar}
-                    />
-                    <Icon name={Icons.edit} size={Constants.font.icon / 2} />
-                </View>
-                : null}
-            {isExpand
-                ? <View style={styles.containerExpand}>
+                ? <View style={styles.containerExpand} disable={isEdit}>
                     <Icon name={Icons.sub} color={Colors.access} />
                     <Icon name={Icons.move} color={Colors.access} />
                     <Icon name={Icons.noti} color={Colors.access} />
@@ -55,24 +74,22 @@ let TaskItem = ({
 
 let styles = StyleSheet.create({
     containerItem: {
-        flex: 1,
         borderColor: Colors.border,
         borderBottomWidth: 0.5,
-        paddingLeft: Constants.padHor,
+        paddingHorizontal: Constants.padHor,
         paddingVertical: Constants.padVer,
     },
     containerExpand: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around'
     },
     containerEdit: {
         flexDirection: 'row',
-        position: 'absolute',
-        right: Constants.padHor,
-        top: Constants.padVer,
+        paddingLeft: Constants.padVer / 2,
     },
     textSub: {
+        flex: 1,
         marginBottom: Constants.padHor
     }
 });
