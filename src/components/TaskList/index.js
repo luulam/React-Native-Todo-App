@@ -19,6 +19,7 @@ class MyListCategory extends Component {
             item={item}
             isExpand={selectExpand === index}
             isEdit={selectEdit}
+            onChangeStar={() => this.onChangeStar({ item, index })}
             onPress={() => this.onPressItem({ item, index })}
         />;
     }
@@ -37,6 +38,11 @@ class MyListCategory extends Component {
         let { updateSelectExpand, selectExpand } = this.props;
         let value = selectExpand === undefined ? index : selectExpand === index ? undefined : index;
         updateSelectExpand(value);
+    }
+
+    onChangeStar = ({ item, index }) => {
+        let { editTask } = this.props;
+        editTask({ isStar: !item.isStar, id: item.id });
     }
 }
 

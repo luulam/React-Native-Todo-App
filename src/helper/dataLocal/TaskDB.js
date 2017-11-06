@@ -79,7 +79,7 @@ const edit = ({
     subTask,
     idCategory
 }) => {
-    if (id !== undefined) { throw 'id not null'; }
+    if (id === undefined) { throw 'id not null'; }
     Realm.beginTransaction();
     let objectSchema = getByID(id);
     if (name !== undefined) { objectSchema.name = name; }

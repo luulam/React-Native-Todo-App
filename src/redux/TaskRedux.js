@@ -61,7 +61,9 @@ export default (state = INITIAL, action) => {
 
         case FETCH_TASK: {
             return Object.assign({}, state, {
-                listTask: taskItems
+                listTask: taskItems,
+                selectEdit: undefined,
+                selectExpand: undefined,
             });
         }
 

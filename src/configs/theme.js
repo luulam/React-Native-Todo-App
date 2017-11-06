@@ -16,7 +16,8 @@ const Colors = {
     brown: '#693504',
     red: '#db2828',
     white: '#ffffff',
-    black: '#4c4c4c'
+    black: '#0f0f0f',
+    yellow: '#f2e718'
 };
 
 const Constants = {
@@ -35,12 +36,12 @@ const Constants = {
         dialog: 22,
         nomal: 16,
         sub: 12,
-        icon: 32,
+        icon: 28,
         h2: 24
     },
     fab: 42,
-    icon: 38,
-    btnHeight: 38,
+    icon: 34,
+    btnHeight: 34,
 };
 
 const Style = {

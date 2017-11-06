@@ -16,8 +16,10 @@ let TaskItem = ({
     item,
     isExpand,
     isEdit,
-    onPress
+    onPress,
+    onChangeStar
 }) => {
+    let { isStar } = item;
     return (
         <View style={styles.containerItem} onPress={onPress} disTouch={false}>
             <Text text={item.name} />
@@ -29,7 +31,12 @@ let TaskItem = ({
                 : null}
             {isExpand
                 ? <View style={styles.containerEdit}>
-                    <Icon name={Icons.star} size={Constants.font.icon / 2} />
+                    <Icon
+                        name={isStar ? Icons.starSelect : Icons.star}
+                        color={isStar ? Colors.yellow : undefined}
+                        size={Constants.font.icon / 2}
+                        onPress={onChangeStar}
+                    />
                     <Icon name={Icons.edit} size={Constants.font.icon / 2} />
                 </View>
                 : null}
@@ -51,7 +58,7 @@ let styles = StyleSheet.create({
         flex: 1,
         borderColor: Colors.border,
         borderBottomWidth: 0.5,
-        paddingHorizontal: Constants.padHor,
+        paddingLeft: Constants.padHor,
         paddingVertical: Constants.padVer,
     },
     containerExpand: {
