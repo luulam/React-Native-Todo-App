@@ -1,4 +1,4 @@
-import { TaskDB } from '../helper';
+import { TaskDB, CategoryDB } from '../helper';
 
 const FETCH_TASK = 'FETCH_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -10,7 +10,7 @@ const SHOW_ADD_TASK = 'SHOW_ADD_TASK';
 const HIDE_ADD_TASK = 'HIDE_ADD_TASK';
 
 import { List } from 'immutable';
-
+import { Category } from './';
 export const actions = {
     fetchTask: dispatch => ({ id }) => {
         dispatch({
@@ -19,10 +19,18 @@ export const actions = {
         });
     },
     addTask: dispatch => ({ name, idCategory }) => {
+        let taskNew = TaskDB.create({ name, idCategory });
+        if (idCategory !== undefined) {
+            if (CategoryDB.getByID(idCategory) !== undefined) {
+                CategoryDB.addTask({ id: idCategory, task: taskNew });
+            }
+        }
         dispatch({
             type: ADD_TASK,
-            taskItem: Object.assign({}, TaskDB.create({ name, idCategory }))
+            taskItem: Object.assign({}, taskNew)
         });
+        //update list category in screen ListCategoryScreen
+        Category.actions.fetchCategory(dispatch)();
     },
     editTask: dispatch => ({ id, name, isComplete, isStar, subTask, idCategory }) => {
         dispatch({

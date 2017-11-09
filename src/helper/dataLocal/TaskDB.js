@@ -43,7 +43,7 @@ const getByID = (id) => {
  */
 const getByCategory = ({ id }) => {
     if (!id) { return get(); }
-    return Realm.objects('Task').filtered(`id = ${id}`);
+    return Realm.objects('Task').filtered(`idCategory == "${id}"`);
 };
 
 /**

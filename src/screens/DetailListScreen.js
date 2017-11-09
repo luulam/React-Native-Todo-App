@@ -38,26 +38,27 @@ class DetailList extends Component {
         const { addTask } = this.props;
         const { addTaskShow, addTaskValue, addTaskIdCategory } = nextProps;
         if (!addTaskShow) {
-            if (addTaskValue !== undefined) {
-                addTask(addTaskValue);
+            if (addTaskValue !== undefined && addTaskIdCategory !== undefined) {
+                addTask(addTaskValue, addTaskIdCategory);
             }
         }
     }
     render() {
+        const { params } = this.props;
         return (
             <View
                 style={styles.containers}
             >
                 {this.renderHeader()}
-                <TaskList />
+                <TaskList idCategory={params.id} />
                 <FloatActionButton onPress={() => this.onShowAddTask()} />
             </View>
         );
     }
 
     onShowAddTask = () => {
-        const { showAddTask } = this.props;
-        showAddTask();
+        const { showAddTask, params } = this.props;
+        showAddTask(params.id);
     }
 }
 

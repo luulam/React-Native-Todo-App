@@ -24,6 +24,10 @@ const get = () => {
     return Realm.objects('Category');
 };
 
+/**
+ * get list Category
+ * @returns {RealmObject}
+ */
 const getByID = (id) => {
     return Realm.objectForPrimaryKey('Category', id);
 };
@@ -42,14 +46,26 @@ const create = ({
 };
 
 const edit = ({
-    id, name
+    id, name, listTask
 }) => {
     Realm.beginTransaction();
     let objectSchema = getByID(id);
-    objectSchema.name = name;
+    if (name !== undefined) { objectSchema.name = name; }
+    if (listTask !== undefined) { objectSchema.listTask = listTask; }
     Realm.commitTransaction();
     return getByID(id);
 };
+
+const addTask = ({
+    id, task
+}) => {
+    Realm.beginTransaction();
+    let objectSchema = getByID(id);
+    if (task !== undefined) {
+        objectSchema.listTask.push(task);
+    }
+    Realm.commitTransaction();
+}
 
 /**
  * @param {int} index 
@@ -67,5 +83,7 @@ export default {
     get,
     create,
     edit,
-    remove
+    remove,
+    getByID,
+    addTask
 };

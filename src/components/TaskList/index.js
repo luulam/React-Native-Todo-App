@@ -9,8 +9,8 @@ import TaskItem from './TaskItem';
 
 class MyListCategory extends Component {
     componentWillMount() {
-        this.props.fetchTask();
-
+        const { idCategory } = this.props;
+        this.props.fetchTask(idCategory);
     }
     renderItem = ({ item, index }) => {
         const { selectEdit, selectExpand } = this.props;
