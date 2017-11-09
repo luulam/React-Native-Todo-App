@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from './redux';
 import { StatusBar } from 'react-native';
-import { Notify, Dialog, View } from './components';
+import { Notify, Dialog, View, AddTask } from './components';
 import Navigation from './configs/Navigation';
 
 export default () => {
@@ -21,6 +21,7 @@ export default () => {
 
         <Navigation />
 
+        <AddTask />
         <Notify />
         <Dialog />
       </View >

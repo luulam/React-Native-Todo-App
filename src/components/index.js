@@ -14,6 +14,7 @@ import Header from './Header';
 import CategoryList from './CategoryList';
 import FloatActionButton from './FloatActionButton';
 import TaskList from './TaskList';
+import AddTask from './AddTask';
 
 export {
     Text,
@@ -27,5 +28,6 @@ export {
     CategoryList,
     View,
     FloatActionButton,
-    TaskList
+    TaskList,
+    AddTask
 };

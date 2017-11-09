@@ -21,5 +21,7 @@ export default {
     alarm: 'ios-alarm-outline',
     star: 'ios-star-outline',
     starSelect: 'ios-star',
-    edit: 'ios-brush-outline'
+    edit: 'ios-brush-outline',
+    close: 'ios-close-outline',
+    done: 'ios-checkmark-outline'
 };

@@ -6,6 +6,8 @@ const EDIT_TASK = 'EDIT_TASK';
 const REMOVE_TASK = 'DELETE_TASK';
 const UPDATE_SELECT_EDIT_TASK_LIST = 'UPDATE_SELECT_EDIT_TASK_LIST';
 const UPDATE_SELECT_EXPAND_TASK_LIST = 'UPDATE_SELECT_EXPAND_TASK_LIST';
+const SHOW_ADD_TASK = 'SHOW_ADD_TASK';
+const HIDE_ADD_TASK = 'HIDE_ADD_TASK';
 
 import { List } from 'immutable';
 
@@ -45,6 +47,19 @@ export const actions = {
             type: UPDATE_SELECT_EXPAND_TASK_LIST,
             valueSelectExpand: value
         });
+    },
+    showAddTask: dispatch => ({ idCategory }) => {
+        dispatch({
+            type: SHOW_ADD_TASK,
+            idCategory: idCategory
+        });
+    },
+    hideAddTask: dispatch => ({ value, idCategory }) => {
+        dispatch({
+            type: HIDE_ADD_TASK,
+            idCategory: idCategory,
+            valueAddTask: value
+        });
     }
 };
 
@@ -52,10 +67,14 @@ const INITIAL = {
     listTask: [],
     selectEdit: undefined,
     selectExpand: undefined,
+
+    addTaskShow: false,
+    addTaskIdCategory: undefined,
+    addTaskValue: undefined
 };
 
 export default (state = INITIAL, action) => {
-    const { taskItems, taskItem, id, valueSelectEdit, valueSelectExpand } = action;
+    const { taskItems, taskItem, id, valueSelectEdit, valueSelectExpand, idCategory, valueAddTask } = action;
     const { listTask } = state;
     switch (action.type) {
 
@@ -98,6 +117,21 @@ export default (state = INITIAL, action) => {
         case UPDATE_SELECT_EXPAND_TASK_LIST: {
             return Object.assign({}, state, {
                 selectExpand: valueSelectExpand
+            });
+        }
+
+        case SHOW_ADD_TASK: {
+            return Object.assign({}, state, {
+                addTaskShow: true,
+                addTaskIdCategory: idCategory
+            });
+        }
+
+        case HIDE_ADD_TASK: {
+            return Object.assign({}, state, {
+                addTaskShow: false,
+                addTaskIdCategory: idCategory,
+                addTaskValue: valueAddTask
             });
         }
         default:
