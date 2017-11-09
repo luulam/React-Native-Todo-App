@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Constants } from '../../configs';
 
 /**
  * 
@@ -28,7 +29,7 @@ const ViewApp = ({
             delayLongPress={delayLongPress}
         >
             {children}
-            <View style={disable ? styles.containersDisable : null} />
+            {disable ? <View style={styles.containersDisable} /> : null}
         </TouchableOpacity>
     );
 };
@@ -51,7 +52,8 @@ ViewApp.propTypes = {
 
 ViewApp.defaultProps = {
     disable: false,
-    disTouch: true
+    disTouch: true,
+    activeOpacity: Constants.opacity
 };
 
 

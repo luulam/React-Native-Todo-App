@@ -75,6 +75,8 @@ let CategoryItem = ({
                 autoFocus
                 defaultValue={name}
                 bold
+                maxLength={Configs.maxLengthNameCategory}
+                multiline
                 upperCase
                 color={Colors.access}
                 onUnFocus={() => onUnFocus({ item, index, text: this[`input${index}`].text() })} />

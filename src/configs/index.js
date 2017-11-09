@@ -6,6 +6,8 @@ const Configs = {
     client_secret: '',
     time_show_notify: 2000,
     longPress: 700,
+    maxLengthNameCategory: 24,
+    maxLengthNameTask: 64,
 };
 
 export {

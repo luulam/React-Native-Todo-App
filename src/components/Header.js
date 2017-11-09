@@ -66,8 +66,8 @@ let styles = StyleSheet.create({
     containerCenter: {
         zIndex: -1,
         position: 'absolute',
-        left: 0,
-        right: 0
+        left: Constants.padHor * 2,
+        right: Constants.padHor * 2
     }
 });
 

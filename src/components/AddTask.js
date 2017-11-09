@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { Icon, InputText } from '../components';
-import { Constants, Colors, Style } from '../configs';
+import { Constants, Colors, Style, Configs } from '../configs';
 import { Icons, Strings } from '../assets';
 import { Task } from '../redux';
 
@@ -21,6 +21,7 @@ class AddTaskScreen extends Component {
                 <InputText
                     ref={component => { this.inputTextValue = component; }}
                     autoFocus
+                    maxLength={Configs.maxLengthNameTask}
                     hint={Strings.hint_add_task}
                     onChangeText={this.onChangetText}
                 />

@@ -23,7 +23,7 @@ const Colors = {
 const Constants = {
     appWidth: width < height ? width : height,
     appHeight: width < height ? height : width,
-    navBarHeight: (Platform.OS === 'ios') ? 56 : 56,
+    navBarHeight: (Platform.OS === 'ios') ? 48 : 48,
     statusBarHeight: Platform.OS === 'ios' ? 20 : 20,
     padHor: 22,
     padVer: 12,

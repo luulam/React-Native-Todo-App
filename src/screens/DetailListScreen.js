@@ -16,6 +16,8 @@ class DetailList extends Component {
             onPress={() => navigation.goBack()} />;
 
         const center = <Text align={'center'}
+            ellipsizeMode={'tail'}
+            numberOfLines={1}
             text={params.name}
             fontSize={Constants.font.dialog}
             color={Colors.access}

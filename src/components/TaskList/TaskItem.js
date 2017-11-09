@@ -35,6 +35,8 @@ let TaskItem = ({
                     ? <InputText
                         ref={component => { this[`input${index}`] = component; }}
                         autoFocus
+                        maxLength={Configs.maxLengthNameTask}
+                        multiline
                         defaultValue={item.name}
                         onUnFocus={() => onUnFocus({ item, index, text: this[`input${index}`].text() })} />
                     : <Text text={item.name} style={{ flex: 1 }} />
