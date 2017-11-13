@@ -25,6 +25,8 @@ let TaskItem = ({
     let { isStar } = item;
     return (
         <View
+            onSwipeRight={(range) => console.log('SwipeRight', range)}
+            onSwipeLeft={(range) => console.log('onSwipeLeft', range)}
             style={styles.containerItem}
             onPress={onPress}
             disTouch={isEditMode}

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, Constants } from '../../configs';
+import { View } from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 /**
@@ -14,21 +15,20 @@ let IconApp = ({
     name,
     size,
     color,
-    onPress,
-    disable
+    onPress
 }) => {
     return (
-        <TouchableOpacity
-            disabled={disable}
-            activeOpacity={Constants.opacity}
+        <View
+            disTouch={false}
             onPress={onPress}
             style={[style, styles.containers]}>
             <Icon
+                onPress={onPress}
                 style={styles.icon}
                 name={name}
                 size={size}
                 color={color} />
-        </TouchableOpacity>
+        </View>
     );
 };
 
@@ -47,7 +47,7 @@ let styles = StyleSheet.create({
 });
 
 IconApp.propTypes = {
-    style:PropTypes.any,
+    style: PropTypes.any,
     name: PropTypes.string,
     size: PropTypes.number,
     color: PropTypes.string,
@@ -59,7 +59,6 @@ IconApp.defaultProps = {
     name: 'ios-bug-outline',
     size: Constants.font.icon,
     color: Colors.text,
-    disable: false
 };
 
 export default IconApp;
