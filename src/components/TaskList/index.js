@@ -24,6 +24,8 @@ class MyListCategory extends Component {
             onChangeStar={() => this.onChangeStar({ item, index })}
             onPress={() => this.onPressItem({ item, index })}
             onEdit={() => this.onEditItem({ item, index })}
+            onChangeComplete={(value) => this.onChangeComplete({ value, item })}
+            onRemove={() => this.onRemoveTask({ item })}
             onUnFocus={this.onUnFocus}
         />;
     }
@@ -52,6 +54,18 @@ class MyListCategory extends Component {
     onEditItem = ({ item, index }) => {
         const { updateSelectEdit } = this.props;
         updateSelectEdit(index);
+    }
+
+    onChangeComplete = ({ item, value }) => {
+        const { editTask, updateSelectEdit, updateSelectExpand } = this.props;
+        editTask({ id: item.id, isComplete: value });
+        updateSelectEdit(undefined);
+        updateSelectExpand(undefined);
+    }
+
+    onRemoveTask = ({ item }) => {
+        const { deleteTask } = this.props;
+        deleteTask(item.id);
     }
 
     onUnFocus = ({ item, index, text }) => {

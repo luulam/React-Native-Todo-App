@@ -20,17 +20,22 @@ let TaskItem = ({
     onUnFocus,
     onPress,
     onChangeStar,
-    onEdit
+    onEdit,
+    onChangeComplete,
+    onRemove
 }) => {
-    let { isStar } = item;
+    let { isStar, isComplete } = item;
     return (
         <View
+            onSwipeRight={(range) => onChangeComplete(true)}
+            onSwipeLeft={(range) => onChangeComplete(false)}
             style={styles.containerItem}
-            onPress={onPress}
+            onPress={!isComplete && onPress}
             disTouch={isEditMode}
             disable={isEditMode && !isEdit}>
-
-            <View style={{ flexDirection: 'row' }}>
+            <View
+                disable={isComplete}
+                style={styles.containerItemDefault}>
                 {isEditMode && isEdit
                     ? <InputText
                         ref={component => { this[`input${index}`] = component; }}
@@ -39,23 +44,28 @@ let TaskItem = ({
                         multiline
                         defaultValue={item.name}
                         onUnFocus={() => onUnFocus({ item, index, text: this[`input${index}`].text() })} />
-                    : <Text text={item.name} style={{ flex: 1 }} />
+                    : <Text
+                        ellipsizeMode={isExpand ? undefined : 'tail'}
+                        numberOfLines={isExpand ? undefined : 1}
+                        text={item.name}
+                        style={{ flex: 1, marginVertical: (Constants.icon - Constants.font.nomal) / 2 }} />
                 }
                 {isExpand
                     ? <View style={styles.containerEdit}>
                         <Icon
                             name={isStar ? Icons.starSelect : Icons.star}
                             color={isStar ? Colors.yellow : undefined}
-                            size={Constants.font.icon / 2}
+                            size={Constants.font.icon * 0.6}
                             onPress={onChangeStar}
                         />
-                        <Icon name={Icons.edit} size={Constants.font.icon / 2} onPress={onEdit} />
+                        <Icon name={Icons.edit} size={Constants.font.icon * 0.6} onPress={onEdit} />
                     </View>
                     : null}
             </View>
 
             {isExpand
-                ? <Text style={styles.textSub}
+                ? <Text
+                    style={styles.textSub}
                     text={item.timeCreate}
                     color={Colors.border}
                     fontSize={Constants.font.sub} />
@@ -70,6 +80,17 @@ let TaskItem = ({
                     <Icon name={Icons.share} color={Colors.access} />
                 </View>
                 : null}
+
+            {isComplete
+                ? <View style={styles.containerComplete} >
+                    <View style={styles.lineComplete} />
+                    <Icon style={styles.containerIconClose}
+                        size={Constants.font.icon * 0.7}
+                        name={Icons.close}
+                        onPress={onRemove}
+                        color={Colors.white} />
+                </View>
+                : null}
         </View>
     );
 };
@@ -81,10 +102,14 @@ let styles = StyleSheet.create({
         paddingHorizontal: Constants.padHor,
         paddingVertical: Constants.padVer,
     },
+    containerItemDefault: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
     containerExpand: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-between'
     },
     containerEdit: {
         flexDirection: 'row',
@@ -93,6 +118,32 @@ let styles = StyleSheet.create({
     textSub: {
         flex: 1,
         marginBottom: Constants.padHor
+    },
+    containerComplete: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: Constants.padHor,
+        paddingRight: Constants.padHor / 2
+    },
+    lineComplete: {
+        paddingLeft: Constants.padVer / 2,
+        flex: 1,
+        height: 1,
+        backgroundColor: Colors.border
+    },
+    containerIconClose: {
+        marginHorizontal: 6,
+        backgroundColor: Colors.border,
+        height: Constants.font.icon * 0.6,
+        width: Constants.font.icon * 0.6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: Constants.font.icon / 2
     }
 });
 

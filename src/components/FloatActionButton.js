@@ -36,6 +36,7 @@ class FloatActionButton extends Component {
                 }, styles.constants]}
             >
                 <Icon
+                    onPress={onPress}
                     name={name ? name : Icons.add}
                     color={Colors.white}
                     disable

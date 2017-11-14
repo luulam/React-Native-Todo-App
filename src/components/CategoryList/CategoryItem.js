@@ -28,11 +28,11 @@ let CategoryItem = ({
     if (!isEditView) {
         return (
             <View
-                disable={isDisable && !isRoundView}
+                disable={isDisable}
                 onPress={() => onPressItem({ item, index })}
                 onLongPress={() => onLongPressItem({ item, index })}
                 delayLongPress={Configs.longPress}
-                disTouch={isDisable && !isRoundView}
+                disTouch={isDisable || isRoundView}
                 style={[
                     index % 2 === 0 ? styles.containerItemLeft : styles.containerItemRight,
                     isAddView ? styles.containerItemAdd : null

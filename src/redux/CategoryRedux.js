@@ -33,13 +33,13 @@ export const actions = {
     addCategory: dispatch => ({ name }) => {
         dispatch({
             type: ADD_CATEGORY,
-            category: CategoryDB.create({ name })
+            category: CategoryDB.create({ name:name.toUpperCase() })
         });
     },
     editCategory: dispatch => ({ id, name }) => {
         dispatch({
             type: EDIT_CATEGORY,
-            category: CategoryDB.edit({ id, name })
+            category: CategoryDB.edit({ id, name:name.toUpperCase() })
         });
     },
     deleteCategory: dispatch => ({ id }) => {

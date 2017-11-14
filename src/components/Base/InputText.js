@@ -128,6 +128,7 @@ export default class InputText extends Component {
                     onChangeText={this._onChangeText}
                     value={upperCase ? value.toUpperCase() : value}
                     onFocus={this._onFocus}
+                    disableFullscreenUI={true}
                     style={{
                         color: color,
                         fontWeight: bold ? 'bold' : undefined,

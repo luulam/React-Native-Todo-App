@@ -35,7 +35,7 @@ export const actions = {
     editTask: dispatch => ({ id, name, isComplete, isStar, subTask, idCategory }) => {
         dispatch({
             type: EDIT_TASK,
-            taskItem: TaskDB.edit({ id, name, isComplete, isStar, subTask, idCategory })
+            taskItem: Object.assign({}, TaskDB.edit({ id, name, isComplete, isStar, subTask, idCategory }))
         });
     },
     deleteTask: dispatch => ({ id }) => {

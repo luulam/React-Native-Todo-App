@@ -59,6 +59,7 @@ let styles = StyleSheet.create({
     },
     containerTitle: {
         flex: 1,
+        paddingLeft: Constants.padHor / 2
     },
     containerRow: {
         flexDirection: 'row'

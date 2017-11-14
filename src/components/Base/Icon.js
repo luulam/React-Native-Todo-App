@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, Constants } from '../../configs';
+import { View } from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 /**
@@ -18,17 +19,16 @@ let IconApp = ({
     disable
 }) => {
     return (
-        <TouchableOpacity
-            disabled={disable}
-            activeOpacity={Constants.opacity}
+        <View
+            disTouch={disable}
             onPress={onPress}
-            style={[style, styles.containers]}>
+            style={[styles.containers, style]}>
             <Icon
                 style={styles.icon}
                 name={name}
                 size={size}
                 color={color} />
-        </TouchableOpacity>
+        </View>
     );
 };
 
@@ -47,7 +47,7 @@ let styles = StyleSheet.create({
 });
 
 IconApp.propTypes = {
-    style:PropTypes.any,
+    style: PropTypes.any,
     name: PropTypes.string,
     size: PropTypes.number,
     color: PropTypes.string,
