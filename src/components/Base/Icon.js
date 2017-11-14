@@ -21,9 +21,8 @@ let IconApp = ({
         <View
             disTouch={false}
             onPress={onPress}
-            style={[style, styles.containers]}>
+            style={[styles.containers, style]}>
             <Icon
-                onPress={onPress}
                 style={styles.icon}
                 name={name}
                 size={size}

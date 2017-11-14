@@ -16,10 +16,10 @@ class ViewApp extends Component {
     _locationY = undefined
 
     onHandleTouch = {
-        onTouchStart: (event) => {
-            const { onLongPress, delayLongPress, disTouch } = this.props;
-
-            if (disTouch) { return; }
+        onStartShouldSetResponder: () => !this.props.disTouch,
+        onResponderTerminationRequest: (event) => { },
+        onResponderGrant: (event) => {
+            const { onLongPress, delayLongPress } = this.props;
 
             this._name.setNativeProps({ opacity: Constants.opacity });
 
@@ -36,15 +36,14 @@ class ViewApp extends Component {
                 this._timeCountTouch = (this._timeCountTouch + 10);
             }, 10);
         },
-        onTouchEnd: (event) => {
-            const { onPress, disTouch, onSwipeLeft, onSwipeRight } = this.props;
+        onResponderMove: (event) => { },
+        onResponderRelease: (event) => {
+            const { onPress, onSwipeLeft, onSwipeRight } = this.props;
             const { _locationX, _locationY } = this;
             const handleReset = () => {
                 this._timeCountTouch = 0;
                 clearInterval(this._countdown);
             };
-
-            if (disTouch) { return; }
 
             this._name.setNativeProps({ opacity: 1 });
 
@@ -66,13 +65,13 @@ class ViewApp extends Component {
             }
 
             // check press
-            if (this._countdown !== undefined && this._timeCountTouch > 20) {
+            if (this._countdown !== undefined && this._timeCountTouch !== undefined) {
                 console.log('onPress');
                 onPress && onPress();
             }
             handleReset();
-
-        }
+        },
+        onResponderTerminate: (event) => { }
     }
 
 
@@ -84,11 +83,11 @@ class ViewApp extends Component {
         return (
             <View
                 ref={component => { this._name = component; }}
-                style={[style, { opacity: disable ? 0.2 : 1 }]}
-
                 {...this.onHandleTouch}
-
                 {...this.props}
+
+
+                style={[style, { opacity: disable ? 0.2 : 1 }]}
             >
                 {children}
             </View>
