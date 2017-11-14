@@ -48,17 +48,17 @@ let TaskItem = ({
                         ellipsizeMode={isExpand ? undefined : 'tail'}
                         numberOfLines={isExpand ? undefined : 1}
                         text={item.name}
-                        style={{ flex: 1 }} />
+                        style={{ flex: 1, marginVertical: (Constants.icon - Constants.font.nomal) / 2 }} />
                 }
                 {isExpand
                     ? <View style={styles.containerEdit}>
                         <Icon
                             name={isStar ? Icons.starSelect : Icons.star}
                             color={isStar ? Colors.yellow : undefined}
-                            size={Constants.font.icon / 2}
+                            size={Constants.font.icon * 0.6}
                             onPress={onChangeStar}
                         />
-                        <Icon name={Icons.edit} size={Constants.font.icon / 2} onPress={onEdit} />
+                        <Icon name={Icons.edit} size={Constants.font.icon * 0.6} onPress={onEdit} />
                     </View>
                     : null}
             </View>

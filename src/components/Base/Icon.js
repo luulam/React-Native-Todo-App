@@ -15,11 +15,12 @@ let IconApp = ({
     name,
     size,
     color,
-    onPress
+    onPress,
+    disable
 }) => {
     return (
         <View
-            disTouch={false}
+            disTouch={disable}
             onPress={onPress}
             style={[styles.containers, style]}>
             <Icon
@@ -58,6 +59,7 @@ IconApp.defaultProps = {
     name: 'ios-bug-outline',
     size: Constants.font.icon,
     color: Colors.text,
+    disable: false
 };
 
 export default IconApp;

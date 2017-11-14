@@ -51,7 +51,6 @@ class Dialog extends Component {
         return dialog.show
             ? <View
                 disTouch={false}
-                activeOpacity={0}
                 style={styles.containers}
                 onPress={() => this.props.hideDialog()}
             >
