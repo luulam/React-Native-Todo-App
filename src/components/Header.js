@@ -18,11 +18,11 @@ class HeaderApp extends Component {
             title,
             left,
             right,
-            center } = this.props;
+            center, backgroundColor } = this.props;
         return (
             <View
                 disable={selectEditCategory !== undefined || selectEditTask !== undefined}
-                style={[style, styles.containers, { justifyContent: title ? 'flex-start' : 'space-between' }]}
+                style={[style, styles.containers, { justifyContent: title ? 'flex-start' : 'space-between', backgroundColor }]}
             >
                 {
                     title ?
