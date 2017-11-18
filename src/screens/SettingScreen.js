@@ -4,6 +4,7 @@ import { StyleSheet, Image, WebView } from 'react-native';
 import { Text, View } from '../components';
 import { Constants } from '../configs';
 import { Images } from '../assets';
+import { platform, isUrl } from '../helper';
 
 const NAME = 'Todo';
 const VERRSION = 'Version : 1.0.0';
@@ -11,7 +12,7 @@ const About = `<!DOCTYPE html>
 <html>
 
 <head>
-    <title>HTML Internal CSS</title>
+    <title>About</title>
 
     <style type="text/css">
         * {
@@ -44,34 +45,47 @@ const About = `<!DOCTYPE html>
 </html>`;
 
 class Setting extends Component {
+    _webView = null
     render() {
         return (
             <View
                 style={styles.containers}
             >
-                <View style={styles.containersTop}>
+                <View style={styles.containersTop} disTouch={false} onPress={() => this._webView.goBack()}>
                     <Image source={Images.logo} style={styles.logo} />
                     <Text text={NAME} bold fontSize={Constants.font.h2} />
                     <Text text={VERRSION} italic fontSize={Constants.font.sub} />
                 </View>
                 <View style={styles.containersBottom}>
                     <WebView
-                        scalesPageToFit={false}
+                        ref={(compo) => { this._webView = compo; }}
+                        scalesPageToFit={!platform}
                         source={{ html: About }}
                         style={{ flex: 1 }}
-                        onNavigationStateChange={(event) => console.log('event', event)}
-                        onShouldStartLoadWithRequest={(event) => {
-                            if (event.navigationType && event.navigationType === "click") {
-                                this.props.navigation.navigate('WebView', { url: event.url, title: event.title });
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        }}
+                        onNavigationStateChange={!platform ? this.onNavigationStateChange : undefined}
+                        onShouldStartLoadWithRequest={platform ? this.onShouldStartLoadWithRequest : undefined}
                     />
                 </View>
             </View>
         );
+
+    }
+    onShouldStartLoadWithRequest = (event) => {
+        if (event.navigationType && event.navigationType === "click") {
+            this.props.navigation.navigate('WebView', { url: event.url, title: event.title });
+            return false;
+        } else {
+            return true;
+        }
+    }
+    onNavigationStateChange = (event) => {
+        if (!event.loading) { return; }
+
+        if (isUrl(event.url)) {
+            this._webView.stopLoading();
+            this.props.navigation.navigate('WebView', { url: event.url, title: event.title });
+        }
+        this._webView.goBack();
     }
 }
 
