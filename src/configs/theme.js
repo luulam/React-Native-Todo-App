@@ -5,7 +5,7 @@ const Colors = {
     primary: '#edbbd0',
     secondary: '#B3D9CE',
     bg_app: 'white',
-    access: '#1CA5F0',
+    access: '#00668b',
     text: '#191919',
     text_light: 'white',
     gray: 'gray',

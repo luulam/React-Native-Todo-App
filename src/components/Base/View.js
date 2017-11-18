@@ -51,7 +51,6 @@ class ViewApp extends Component {
             const { pageX } = event.nativeEvent;
 
             if (_locationX !== undefined && _locationY !== undefined) {
-                console.log(_locationX, pageX, pageX - _locationX);
                 if (pageX - _locationX > Configs.ranger_Swipe) {
                     onSwipeRight && onSwipeRight(pageX - _locationX);
                     handleReset();
@@ -66,7 +65,6 @@ class ViewApp extends Component {
 
             // check press
             if (this._countdown !== undefined && this._timeCountTouch !== undefined) {
-                console.log('onPress');
                 onPress && onPress();
             }
             handleReset();

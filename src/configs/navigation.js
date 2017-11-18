@@ -7,6 +7,7 @@ import SplashScreen from '../screens/SplashScreen';
 import ListCategoryScreen from '../screens/ListCategoryScreen';
 import DetailListScreen from '../screens/DetailListScreen';
 import SettingScreen from '../screens/SettingScreen';
+import WebViewScreen from '../screens/WebViewScreen';
 
 import { Colors, Style, Constants } from '../configs';
 import { Icons } from '../assets';
@@ -19,6 +20,9 @@ const Navigation = StackNavigator(
     {
         Splash: {
             screen: SplashScreen
+        },
+        WebView: {
+            screen: WebViewScreen
         },
         MainTab: {
             screen: TabNavigator({
