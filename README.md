@@ -1,19 +1,15 @@
-# todo
-todo app using React Native
-<!-- A perfect starter kit for your next cross-platform React Native app. **FREE** and open-source! Check out live demo on [Google Play](https://play.google.com/store/apps/details?id=com.luulam.bookmark).
-
-<a href="https://play.google.com/store/apps/details?id=com.luulam.bookmark" alt="Google play"><img src="http://i.imgur.com/pxFfB0S.png" width="200"/></a>
-
+# Todo App
+one Todo app simple add,edit,remove...  data using redux 
 
 ## Example
-![](Public/demo.gif?raw=true) -->
+![](./demo.gif)
 
 ## Key Features
  - redux (redux-thunk)
  - realm DB
  - custom Dialog (using redux)
  - custom Toast (using redux)
- - boilerplate
+ - boilerplate (eslint ...)
 
 ## Install
 Once you have downloaded or cloned this repository, follow
